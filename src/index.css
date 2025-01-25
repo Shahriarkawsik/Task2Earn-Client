@@ -1,2 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lexend+Deca:wght@100..900&display=swap');
 @import "tailwindcss";
 @plugin "daisyui";
+
+@theme {
+    --font-Inter: "Inter",serif;
+    --font-LexendDeca: "Lexend Deca",serif;
+    --font-Cinzel: "Cinzel",serif;
+    --color-color1 : rgb(251, 128, 79);
+    --color-color2 : rgb(251, 157, 121);
+    --color-color3 : rgb(20, 20, 20);
+    --color-color4 : rgb(89, 89, 89);
+  
+    --text-32: 20px;
+    --text-40: 40px;
+    --leading-48: 48px;
+}

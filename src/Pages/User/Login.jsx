@@ -1,5 +1,11 @@
+import HelmetTitle from "../../Components/HelmetTitle";
+
 const Login = () => {
-  return <div></div>;
+  return (
+    <section>
+      <HelmetTitle pageTitle={"Login"} />
+    </section>
+  );
 };
 
 export default Login;
