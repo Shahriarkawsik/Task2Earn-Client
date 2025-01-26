@@ -62,6 +62,7 @@ userAvailableCoin
           </div>
         </div>
         {/* Total Payment */}
+        {/* TODO: Calculate total payment */}
         <div className="bg-gradient-to-r from-[#6aaeff] to-[#b6f7ff] rounded-lg flex justify-center items-center gap-6 py-9">
           <img className="w-20 rounded-full" src={payment} alt="" />
           <div className="text-center">
@@ -73,6 +74,7 @@ userAvailableCoin
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <TriangleBarChart />
       </div>
+      {/* TODO: Withdraw request  */}
     </section>
   );
 };
