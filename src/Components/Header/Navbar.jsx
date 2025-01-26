@@ -4,10 +4,23 @@ import coin from "../../assets/coin.png";
 import useAuth from "./../../Hooks/useAuth";
 import "./Navbar.css";
 import Swal from "sweetalert2";
+import useCalculateCoin from "../../Hooks/useCalculateCoin";
+// import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Navbar = () => {
   const { user, SignOutUser } = useAuth();
-  // Logout user
+  const [addCoin] = useCalculateCoin();
+  
+  // const axiosPublic = useAxiosPublic();
+  // axiosPublic
+  //   .get(`/users?email=${user?.email}`)
+  //   .then((res) => {
+  //     console.log(res.data);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err.message);
+  //   });
+
   const handleLogOut = () => {
     SignOutUser()
       .then((res) => {
@@ -105,7 +118,7 @@ const Navbar = () => {
           <div className="flex items-center justify-center gap-2">
             <div className="flex items-center justify-center gap-1 border bg-gray-100 px-3 py-1 rounded-xl">
               <img src={coin} alt="" className="w-12 h-12 rounded-full" />
-              <p>10</p>
+              <p>{addCoin}</p>
             </div>
             <div className="relative group">
               <img

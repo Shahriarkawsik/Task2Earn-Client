@@ -6,12 +6,16 @@ const Root = () => {
   const { pathname } = useLocation();
   return (
     <div>
-      {(pathname !== "/register" && pathname !== "/login") && <Navbar />}
+      {pathname !== "/register" &&
+        pathname !== "/login" &&
+        pathname !== "/selectRole" && <Navbar />}
 
       <div className="min-h-screen">
         <Outlet />
       </div>
-      {(pathname !== "/register" && pathname !== "/login") && <Footer />}
+      {pathname !== "/register" &&
+        pathname !== "/login" &&
+        pathname !== "/selectRole" && <Footer />}
     </div>
   );
 };

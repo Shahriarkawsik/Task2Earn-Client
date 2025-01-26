@@ -6,8 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "./../../Hooks/useAxiosPublic";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import useCalculateCoin from "../../Hooks/useCalculateCoin";
 
 const Register = () => {
+  const [addCoin, setAddCoin] = useCalculateCoin();
   const {
     register,
     handleSubmit,
@@ -31,39 +33,42 @@ const Register = () => {
 
     createUserWithEmail(userInfo.email, userInfo.password)
       .then((result) => {
-        axiosPublic
-          .post("/users", userDetails)
-          .then((res) => {
-            if (res.data.insertedId) {
-              reset();
-              navigate("/");
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: `${userInfo.name}Register Successful`,
-                showConfirmButton: false,
-                timer: 1500,
-              });
-            } else {
+        if (result.user) {
+          axiosPublic
+            .post("/users", userDetails)
+            .then((res) => {
+              if (res.data.insertedId) {
+                reset();
+                navigate("/dashboard");
+                setAddCoin(addCoin + coin);
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: `${userInfo.name}Register Successful`,
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              } else {
+                Swal.fire({
+                  position: "center",
+                  icon: "error",
+                  title: `Database Error`,
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              }
+            })
+            .catch((err) => {
               Swal.fire({
                 position: "center",
                 icon: "error",
-                title: `Database Error`,
+                title: `Error`,
+                text: err.message,
                 showConfirmButton: false,
-                timer: 1500,
+                timer: 2500,
               });
-            }
-          })
-          .catch((err) => {
-            Swal.fire({
-              position: "center",
-              icon: "error",
-              title: `Error`,
-              text: err.message,
-              showConfirmButton: false,
-              timer: 2500,
             });
-          });
+        }
       })
       .catch((error) => {
         Swal.fire({
