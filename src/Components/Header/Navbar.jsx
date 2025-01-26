@@ -10,7 +10,7 @@ import useCalculateCoin from "../../Hooks/useCalculateCoin";
 const Navbar = () => {
   const { user, SignOutUser } = useAuth();
   const [addCoin] = useCalculateCoin();
-  
+
   const handleLogOut = () => {
     SignOutUser()
       .then((res) => {
@@ -106,9 +106,10 @@ const Navbar = () => {
         {/* TODO: if here have an user ,then show a available coin and user profile and logout button */}
         {user && (
           <div className="flex items-center justify-center gap-2">
-            <div className="flex items-center justify-center gap-1 border bg-gray-100 px-3 py-1 rounded-xl">
-              <img src={coin} alt="" className="w-12 h-12 rounded-full" />
-              <p>{addCoin}</p>
+            {/* coin Image */}
+            <div className="flex items-center justify-center gap-1 px-2 py-1 rounded-xl backdrop-blur-md bg-orange-200">
+              <img src={coin} alt="" className="w-10 h-10 rounded-full" />
+              <p className="text-2xl font-Cinzel font-bold">{addCoin || 0}</p>
             </div>
             <div className="relative group">
               <img

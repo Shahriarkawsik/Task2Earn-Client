@@ -7,7 +7,6 @@ import { BsList } from "react-icons/bs";
 import useAuth from "../../Hooks/useAuth";
 import useGetAllUser from "../../Hooks/useGetAllUser";
 const Dashboard = () => {
-  //   return [addCoin, setAddCoin, userRole];
   const [addCoin, , userRole] = useCalculateCoin();
   const { user } = useAuth();
   const [users] = useGetAllUser();

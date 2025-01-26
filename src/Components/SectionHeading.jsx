@@ -7,7 +7,7 @@ const SectionHeading = ({ subtitle, title, className }) => {
     >
       <p className={`text-color5 text-xl leading-6`}>{subtitle}</p>
       <h1
-        className={`text-20 leading-7 text-color3 border border-x-0 border-y-2 border-[#e8e8e8] px-16 py-3 ${
+        className={`text-20 font-Cinzel font-semibold leading-7 text-color3 border border-x-0 border-y-2 border-[#e8e8e8] px-16 py-3 ${
           className || ""
         }`}
       >

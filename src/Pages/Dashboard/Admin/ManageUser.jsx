@@ -119,7 +119,7 @@ const ManageUser = () => {
               {/* row 1 */}
               {users.map((user, index) => (
                 <tr key={user._id} className="text-center text-20 font-medium">
-                  <th>{index + 1}</th>
+                  <th className="font-Cinzel">{index + 1}</th>
                   <th>
                     <img
                       className="w-14 rounded-full"
