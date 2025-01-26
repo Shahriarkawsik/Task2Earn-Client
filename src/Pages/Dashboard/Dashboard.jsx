@@ -1,10 +1,15 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import { BsList } from "react-icons/bs";
+import coin from "../../assets/coin.png";
 import useCalculateCoin from "../../Hooks/useCalculateCoin";
+import { BiSolidBellRing } from "react-icons/bi";
+import { BsList } from "react-icons/bs";
+import useAuth from "../../Hooks/useAuth";
 const Dashboard = () => {
-  const [, , userRole] = useCalculateCoin();
-  console.log(userRole);
+  //   return [addCoin, setAddCoin, userRole];
+  const [addCoin, , userRole] = useCalculateCoin();
+  const { user } = useAuth();
+
   return (
     <section className="grid grid-cols-1 lg:grid-cols-9 xl:grid-cols-12">
       {/* Sidebar */}
@@ -125,7 +130,7 @@ const Dashboard = () => {
                   </li>
                 </>
               )}
-              {/* Buyer NavLink */}
+              {/* Admin NavLink */}
               {userRole === "admin" && (
                 <>
                   <li>
@@ -158,8 +163,36 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="lg:col-span-6 xl:col-span-10 bg-amber-100 min-h-screen px-3 py-10">
-        <Outlet />
+      <div className="lg:col-span-6 xl:col-span-10 bg-amber-100 min-h-screen px-3 py-10 ">
+        <div className="flex rounded-xl shadow-xl">
+          <div className="w-[95%] flex justify-end items-center gap-5 p-2">
+            {/* coin and role */}
+            <div className="flex flex-col items-center gap-2">
+              {/* coin Image */}
+              <div className="flex items-center justify-center gap-1 px-2 py-1 rounded-xl backdrop-blur-md bg-orange-200">
+                <img src={coin} alt="" className="w-10 h-10 rounded-full" />
+                <p className="text-2xl font-Cinzel font-bold">{addCoin || 0}</p>
+              </div>
+              <p className="font-semibold font-Inter uppercase">{userRole}</p>
+            </div>
+            {/* user info */}
+            <div className="flex flex-col justify-center items-center gap-3">
+              <img
+                className="w-12 h-12 rounded-full"
+                src={user?.photoURL}
+                alt="photo"
+              />
+              <p className="font-semibold font-Inter">{user?.displayName}</p>
+            </div>
+          </div>
+          <div className="w-[5%] flex items-center justify-center text-3xl">
+            <BiSolidBellRing />
+          </div>
+        </div>
+
+        <div>
+          <Outlet />
+        </div>
       </div>
     </section>
   );
