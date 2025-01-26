@@ -8,10 +8,11 @@
     --font-Cinzel: "Cinzel",serif;
     --color-color1 : rgb(251, 128, 79);
     --color-color2 : rgb(251, 157, 121);
-    --color-color3 : rgb(20, 20, 20);
+    --color-color3 : rgb(21, 21, 21);
     --color-color4 : rgb(89, 89, 89);
+    --color-color5 : rgb(217, 153, 4);
   
-    --text-32: 20px;
+    --text-20: 20px;
     --text-40: 40px;
     --leading-48: 48px;
 }

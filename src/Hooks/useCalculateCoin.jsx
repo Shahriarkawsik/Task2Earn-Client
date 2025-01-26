@@ -7,9 +7,9 @@ const useCalculateCoin = () => {
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
   const { data: currentUser = {}, refetch } = useQuery({
-    queryKey: ["users", user?.email],
+    queryKey: ["user", user?.email],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/users?email=${user?.email}`);
+      const res = await axiosPublic.get(`/user?email=${user?.email}`);
       refetch();
       return res.data;
     },

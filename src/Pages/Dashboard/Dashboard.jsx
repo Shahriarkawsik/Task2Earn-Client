@@ -5,10 +5,13 @@ import useCalculateCoin from "../../Hooks/useCalculateCoin";
 import { BiSolidBellRing } from "react-icons/bi";
 import { BsList } from "react-icons/bs";
 import useAuth from "../../Hooks/useAuth";
+import useGetAllUser from "../../Hooks/useGetAllUser";
 const Dashboard = () => {
   //   return [addCoin, setAddCoin, userRole];
   const [addCoin, , userRole] = useCalculateCoin();
   const { user } = useAuth();
+  const [users] = useGetAllUser();
+
 
   return (
     <section className="grid grid-cols-1 lg:grid-cols-9 xl:grid-cols-12">
@@ -21,7 +24,7 @@ const Dashboard = () => {
             htmlFor="my-drawer-2"
             className="btn drawer-button w-[20%] lg:hidden "
           >
-            <BsList className="text-2xl  text-color1" />
+            <BsList className="text-2xl text-color1" />
           </label>
           <Link to={"/"} className="lg:hidden flex-1">
             <div className="flex justify-center items-center gap-2 px-3 py-6 ">
@@ -39,7 +42,7 @@ const Dashboard = () => {
             aria-label="close sidebar"
             className="drawer-overlay "
           ></label>
-          <div className="menu max-lg:bg-amber-100 max-lg:w-[350px] text-base-content min-h-full px-4">
+          <div className="menu bg-amber-100 max-lg:w-[350px] text-base-content min-h-full px-4">
             <Link to={"/"} className="">
               <div className="flex justify-center items-center gap-2 px-3 py-10 ">
                 <img src={logo} alt="" />
@@ -163,7 +166,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="lg:col-span-6 xl:col-span-10 bg-amber-100 min-h-screen px-3 py-10 ">
+      <div className="lg:col-span-6 xl:col-span-10 bg-[rgb(246, 246, 246)] min-h-screen px-3 pt-10 ">
         <div className="flex rounded-xl shadow-xl">
           <div className="w-[95%] flex justify-end items-center gap-5 p-2">
             {/* coin and role */}
@@ -189,10 +192,7 @@ const Dashboard = () => {
             <BiSolidBellRing />
           </div>
         </div>
-
-        <div>
-          <Outlet />
-        </div>
+        <Outlet />
       </div>
     </section>
   );
