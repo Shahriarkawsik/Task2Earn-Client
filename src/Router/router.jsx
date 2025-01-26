@@ -5,6 +5,18 @@ import Login from "./../Pages/User/Login";
 import Register from "./../Pages/User/Register";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import SelectRole from "../Pages/User/SelectRole";
+import WorkerHome from "../Pages/Dashboard/Worker/WorkerHome";
+import WorkerTask from "../Pages/Dashboard/Worker/WorkerTask";
+import WorkerSubmission from "../Pages/Dashboard/Worker/WorkerSubmission";
+import WorkerWithdrawal from "../Pages/Dashboard/Worker/WorkerWithdrawal";
+import BuyerHome from "./../Pages/Dashboard/Buyer/BuyerHome";
+import BuyerAddTask from "./../Pages/Dashboard/Buyer/BuyerAddTask";
+import BuyerTask from "./../Pages/Dashboard/Buyer/BuyerTask";
+import BuyerPurchaseCoin from "./../Pages/Dashboard/Buyer/BuyerPurchaseCoin";
+import BuyerPayment from "./../Pages/Dashboard/Buyer/BuyerPayment";
+import AdminHome from "../Pages/Dashboard/Admin/AdminHome";
+import ManageUser from "../Pages/Dashboard/Admin/ManageUser";
+import ManageTask from "../Pages/Dashboard/Admin/ManageTask";
 
 const router = createBrowserRouter([
   {
@@ -32,12 +44,59 @@ const router = createBrowserRouter([
   {
     path: "dashboard",
     element: <Dashboard />,
-    // children: [
-    //   {
-    //     path: "/",
-    //     element: <Home />,
-    //   },
-    // ],
+    children: [
+      // Worker
+      {
+        path: "workerHome",
+        element: <WorkerHome />,
+      },
+      {
+        path: "workerTaskList",
+        element: <WorkerTask />,
+      },
+      {
+        path: "workerSubmission",
+        element: <WorkerSubmission />,
+      },
+      {
+        path: "workerWithdrawal",
+        element: <WorkerWithdrawal />,
+      },
+      // Buyer
+      {
+        path: "buyerHome",
+        element: <BuyerHome />,
+      },
+      {
+        path: "buyerAddTask",
+        element: <BuyerAddTask />,
+      },
+      {
+        path: "buyerTask",
+        element: <BuyerTask />,
+      },
+      {
+        path: "buyerPurchaseCoin",
+        element: <BuyerPurchaseCoin />,
+      },
+      {
+        path: "buyerPayment",
+        element: <BuyerPayment />,
+      },
+      // Admin
+      {
+        path: "adminHome",
+        element: <AdminHome />,
+      },
+      {
+        path: "manageUser",
+        element: <ManageUser />,
+      },
+      {
+        path: "manageTask",
+        element: <ManageTask />,
+      },
+    ],
   },
 ]);
 
