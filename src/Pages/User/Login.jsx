@@ -44,36 +44,8 @@ const Login = () => {
         });
       });
   };
-  // Login with google
-  // old code
-  // const handleSignInWithGoogle = () => {
-  //   createUserWithGoogle()
-  //     .then((result) => {
-  //       // TODO: এখান থেকে user এর Role কি হবে তা জানার জন্য অন্য পেইজে নিয়ে যেতে হবে ।
 
-  //       if (result) {
-  //         navigate("/dashboard");
-  //         Swal.fire({
-  //           position: "center",
-  //           icon: "success",
-  //           title: "Login Successful",
-  //           showConfirmButton: false,
-  //           timer: 1500,
-  //         });
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       Swal.fire({
-  //         position: "center",
-  //         icon: "error",
-  //         title: "Login unsuccessful",
-  //         text: `${error.message}`,
-  //         showConfirmButton: false,
-  //         timer: 1500,
-  //       });
-  //     });
-  // };
-  // new code
+  // Login with google
   const handleSignInWithGoogle = () => {
     createUserWithGoogle()
       .then((result) => {

@@ -1,26 +1,63 @@
 import { FaRegTrashAlt } from "react-icons/fa";
 import SectionHeading from "../../../Components/SectionHeading";
 import useGetAllUser from "../../../Hooks/useGetAllUser";
-import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-/*
-The section will show a table of all users with  display_name, user_email, photo_url, role , coin 
-and some actionable button 
-● remove ( will delete user from the database ) 
-○ By clicking Remove user will be deleted from the server. 
-● Update Role ( Dropdown field.  On change it will change the role of user )  
-○ Admin  
-○ Buyer  
-○ Worker  
-*/
 
 const ManageUser = () => {
   const [users, refetch] = useGetAllUser();
   const axiosSecure = useAxiosSecure();
 
-  const handleUpdateRole = (e, id) => {
-    console.log(e.target.value, id);
+  const handleUpdateRole = (event, id) => {
+    const coin =
+      event.target.value === "worker"
+        ? 10
+        : event.target.value === "buyer"
+        ? 40
+        : 0;
+    /*
+{acknowledged: true, modifiedCount: 1, upsertedId: null, upsertedCount: 0, matchedCount: 1}
+*/
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, update it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .patch(`/users/${id}`, {
+            userRole: event.target.value,
+            userAvailableCoin: coin,
+          })
+          .then((res) => {
+            if (res.data.modifiedCount) {
+              refetch();
+              Swal.fire({
+                title: "Updated!",
+                text: "Your role has been updated successfully.",
+                icon: "success",
+                position: "center",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          })
+          .catch((err) => {
+            console.error("Error updating role:", err.message);
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "Error",
+              text: "There was an issue updating the role. Please try again.",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          });
+      }
+    });
   };
   const handleDeleteUser = (id) => {
     Swal.fire({
@@ -42,6 +79,9 @@ const ManageUser = () => {
                 title: "Deleted!",
                 text: "Your file has been deleted.",
                 icon: "success",
+                position: "center",
+                showConfirmButton: false,
+                timer: 1500,
               });
             }
           })
