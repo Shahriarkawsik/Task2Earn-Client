@@ -11,16 +11,6 @@ const Navbar = () => {
   const { user, SignOutUser } = useAuth();
   const [addCoin] = useCalculateCoin();
   
-  // const axiosPublic = useAxiosPublic();
-  // axiosPublic
-  //   .get(`/users?email=${user?.email}`)
-  //   .then((res) => {
-  //     console.log(res.data);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err.message);
-  //   });
-
   const handleLogOut = () => {
     SignOutUser()
       .then((res) => {
