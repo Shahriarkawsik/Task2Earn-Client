@@ -24,7 +24,6 @@ const BuyerAddTask = () => {
       payableAmount: taskDetails.payableAmount,
       requiredWorkers: taskDetails.requiredWorkers,
       completionDate: taskDetails.completionDate,
-      detailDescription: taskDetails.detailDescription,
       submissionInfo: taskDetails.submissionInfo,
       taskDetail: taskDetails.taskDetail,
       taskImageURL: taskDetails.taskImageURL,
@@ -43,7 +42,6 @@ const BuyerAddTask = () => {
         .post("/tasks", taskInfo)
         .then((res) => {
           if (res.data) {
-            // task add successful হলে user এর available coin মাইনাস করতে হবে ।
             axiosSecure.patch(`/users/${currentUser._id}`, {
               userRole: currentUser.userRole,
               userAvailableCoin:
@@ -125,24 +123,7 @@ const BuyerAddTask = () => {
               <span className="text-red-600">Task Detail is required</span>
             )}
           </div>
-          {/* Detail Description*/}
-          <div className=" space-y-2">
-            <label className="fieldset-label font-Inter font-semibold text-xl leading-6">
-              Detail Description*
-            </label>
-            <input
-              type="text"
-              className="w-full input input-bordered bg-white font-Inter text-xl rounded-md p-3 text-color4"
-              placeholder="Type here...."
-              {...register("detailDescription", { require: true })}
-              required
-            />
-            {errors.detailDescription && (
-              <span className="text-red-600">
-                Detail Description is required
-              </span>
-            )}
-          </div>
+
           {/* Required Workers*/}
           <div className=" space-y-2">
             <label className="fieldset-label font-Inter font-semibold text-xl leading-6">
@@ -208,6 +189,7 @@ const BuyerAddTask = () => {
             )}
           </div>
           {/* Task ImageURL  */}
+
           {/* ToDo: input file হবে */}
           <div className=" space-y-2">
             <label className="fieldset-label font-Inter font-semibold text-xl leading-6">
