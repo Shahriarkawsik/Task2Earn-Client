@@ -1,4 +1,3 @@
-import { useState } from "react";
 import useAuth from "./useAuth";
 import useAxiosPublic from "./useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
@@ -14,9 +13,7 @@ const useCalculateCoin = () => {
       return res.data;
     },
   });
-  const userRole = currentUser?.userRole;
-  const [addCoin, setAddCoin] = useState(currentUser.userAvailableCoin);
-  return [addCoin, setAddCoin, userRole];
+  return [currentUser];
 };
 
 export default useCalculateCoin;

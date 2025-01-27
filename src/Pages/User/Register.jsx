@@ -6,10 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "./../../Hooks/useAxiosPublic";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
-import useCalculateCoin from "../../Hooks/useCalculateCoin";
 
 const Register = () => {
-  const [addCoin, setAddCoin] = useCalculateCoin();
   const {
     register,
     handleSubmit,
@@ -40,7 +38,6 @@ const Register = () => {
               if (res.data.insertedId) {
                 reset();
                 navigate("/dashboard");
-                setAddCoin(addCoin + coin);
                 Swal.fire({
                   position: "center",
                   icon: "success",
@@ -79,7 +76,7 @@ const Register = () => {
           showConfirmButton: false,
           timer: 2500,
         });
-        console.log("Error", error.message);
+       
       });
   };
   return (

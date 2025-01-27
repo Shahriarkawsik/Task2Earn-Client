@@ -46,12 +46,11 @@ const ManageUser = () => {
             }
           })
           .catch((err) => {
-            console.error("Error updating role:", err.message);
             Swal.fire({
               position: "center",
               icon: "error",
               title: "Error",
-              text: "There was an issue updating the role. Please try again.",
+              text: `${err.message}`,
               showConfirmButton: false,
               timer: 1500,
             });
@@ -86,7 +85,14 @@ const ManageUser = () => {
             }
           })
           .catch((err) => {
-            console.log(err.message);
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "Error",
+              text: err.message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
           });
       }
     });

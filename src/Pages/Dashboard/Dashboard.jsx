@@ -5,11 +5,11 @@ import useCalculateCoin from "../../Hooks/useCalculateCoin";
 import { BiSolidBellRing } from "react-icons/bi";
 import { BsList } from "react-icons/bs";
 import useAuth from "../../Hooks/useAuth";
-import useGetAllUser from "../../Hooks/useGetAllUser";
+// import useGetAllUser from "../../Hooks/useGetAllUser";
 const Dashboard = () => {
-  const [addCoin, , userRole] = useCalculateCoin();
+  const [ currentUser] = useCalculateCoin();
   const { user } = useAuth();
-  const [users] = useGetAllUser();
+  // const [users] = useGetAllUser();
 
 
   return (
@@ -51,7 +51,7 @@ const Dashboard = () => {
             {/* Sidebar content here */}
             <ul className="text-xl font-Inter text-color3 space-y-3">
               {/* worker NavLink */}
-              {userRole === "worker" && (
+              {currentUser?.userRole === "worker" && (
                 <>
                   <li>
                     <NavLink
@@ -88,7 +88,7 @@ const Dashboard = () => {
                 </>
               )}
               {/* Buyer NavLink */}
-              {userRole === "buyer" && (
+              {currentUser?.userRole === "buyer" && (
                 <>
                   <li>
                     <NavLink
@@ -133,7 +133,7 @@ const Dashboard = () => {
                 </>
               )}
               {/* Admin NavLink */}
-              {userRole === "admin" && (
+              {currentUser?.userRole === "admin" && (
                 <>
                   <li>
                     <NavLink
@@ -173,9 +173,13 @@ const Dashboard = () => {
               {/* coin Image */}
               <div className="flex items-center justify-center gap-1 px-2 py-1 rounded-xl backdrop-blur-md bg-orange-200">
                 <img src={coin} alt="" className="w-10 h-10 rounded-full" />
-                <p className="text-2xl font-Cinzel font-bold">{addCoin || 0}</p>
+                <p className="text-2xl font-Cinzel font-bold">
+                  {currentUser?.userAvailableCoin || 0}
+                </p>
               </div>
-              <p className="font-semibold font-Inter uppercase">{userRole}</p>
+              <p className="font-semibold font-Inter uppercase">
+                {currentUser?.userRole}
+              </p>
             </div>
             {/* user info */}
             <div className="flex flex-col justify-center items-center gap-3">

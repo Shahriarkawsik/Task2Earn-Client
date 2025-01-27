@@ -2,10 +2,15 @@ import { useForm } from "react-hook-form";
 import SectionHeading from "./../../../Components/SectionHeading";
 import useCalculateCoin from "../../../Hooks/useCalculateCoin";
 import { useNavigate } from "react-router-dom";
+import useAxiosSecure from "./../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import useAuth from "../../../Hooks/useAuth";
 
 const BuyerAddTask = () => {
-  const [addCoin] = useCalculateCoin();
+  const [currentUser] = useCalculateCoin();
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
 
   const {
     register,
@@ -15,26 +20,69 @@ const BuyerAddTask = () => {
   } = useForm();
 
   const onSubmit = (taskDetails) => {
-    const {
-      completionDate,
-      detailDescription,
-      payableAmount,
-      requiredWorkers,
-      submissionInfo,
-      taskDetail,
-      taskImageURL,
-      taskTitle,
-    } = taskDetails;
-  };
+    const taskInfo = {
+      payableAmount: taskDetails.payableAmount,
+      requiredWorkers: taskDetails.requiredWorkers,
+      completionDate: taskDetails.completionDate,
+      detailDescription: taskDetails.detailDescription,
+      submissionInfo: taskDetails.submissionInfo,
+      taskDetail: taskDetails.taskDetail,
+      taskImageURL: taskDetails.taskImageURL,
+      taskTitle: taskDetails.taskTitle,
+      totalPayableAmount:
+        taskDetails.requiredWorkers * taskDetails.payableAmount,
+      buyerEmail: user.email,
+      buyerName: user.displayName,
+    };
 
-  const totalPayableAmount = requiredWorkers * payableAmount;
-  console.log(totalPayableAmount);
-  if (totalPayableAmount > addCoin) {
-    //TODO:  add task to database
-  } else {
-    // TODO: show alert
-    reset(), navigate("/dashboard/buyerPurchaseCoin");
-  }
+    if (
+      taskDetails.requiredWorkers * taskDetails.payableAmount <
+      currentUser?.userAvailableCoin
+    ) {
+      axiosSecure
+        .post("/tasks", taskInfo)
+        .then((res) => {
+          if (res.data) {
+            // task add successful হলে user এর available coin মাইনাস করতে হবে ।
+            axiosSecure.patch(`/users/${currentUser._id}`, {
+              userRole: currentUser.userRole,
+              userAvailableCoin:
+                currentUser?.userAvailableCoin -
+                taskDetails.requiredWorkers * taskDetails.payableAmount,
+            });
+            reset();
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Successfully submitted",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        })
+        .catch((err) => {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: `Error`,
+            text: err.message,
+            showConfirmButton: false,
+            timer: 2500,
+          });
+        });
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: `Submission Fail`,
+        text: "Please Purchase coin",
+        showConfirmButton: false,
+        timer: 2500,
+      });
+      reset();
+      navigate("/dashboard/buyerPurchaseCoin");
+    }
+  };
 
   return (
     <section className="bg-[#f6f6f6] min-h-screen">
