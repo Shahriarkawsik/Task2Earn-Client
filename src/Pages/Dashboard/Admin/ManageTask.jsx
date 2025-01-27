@@ -76,7 +76,7 @@ const ManageTask = () => {
                 <tr key={task._id} className="text-center text-20 font-medium">
                   <th>{index + 1}</th>
                   <th>{task.taskTitle}</th>
-                  <th>{task.detailDescription}</th>
+                  <th>{task.taskDetail}</th>
                   <th>{task.completionDate}</th>
                   <th>{task.buyerEmail}</th>
                   <th>Status</th>

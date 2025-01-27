@@ -10,7 +10,12 @@ const BuyerTask = () => {
   const currentUserTasks = tasks.filter(
     (task) => task?.buyerEmail === user?.email
   );
-
+  const sortedTasks = currentUserTasks.sort((a, b) => {
+    const dateA = new Date(a.completionDate);
+    const dateB = new Date(b.completionDate);
+    return dateB - dateA; 
+  });
+console.log(sortedTasks);
   const handleUpdateTask = (id) => {
     console.log(id);
   };
@@ -41,7 +46,7 @@ const BuyerTask = () => {
 
             <tbody>
               {/* tasks */}
-              {currentUserTasks.map((task, index) => (
+              {sortedTasks.map((task, index) => (
                 <tr key={task._id} className="text-center text-20 font-medium">
                   <th>{index + 1}</th>
                   <th>{task.taskTitle}</th>
