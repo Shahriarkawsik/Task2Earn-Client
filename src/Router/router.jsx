@@ -4,7 +4,6 @@ import Root from "../Root";
 import Login from "./../Pages/User/Login";
 import Register from "./../Pages/User/Register";
 import Dashboard from "../Pages/Dashboard/Dashboard";
-import SelectRole from "../Pages/User/SelectRole";
 import WorkerHome from "../Pages/Dashboard/Worker/WorkerHome";
 import WorkerTask from "../Pages/Dashboard/Worker/WorkerTask";
 import WorkerSubmission from "../Pages/Dashboard/Worker/WorkerSubmission";
@@ -34,10 +33,6 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <Register />,
-      },
-      {
-        path: "/selectRole",
-        element: <SelectRole />,
       },
     ],
   },

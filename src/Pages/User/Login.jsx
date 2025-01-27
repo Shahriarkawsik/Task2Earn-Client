@@ -6,11 +6,12 @@ import useAuth from "../../Hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Login = () => {
   const { signInUserWithEmail, createUserWithGoogle } = useAuth();
   const navigate = useNavigate();
-
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -49,16 +50,56 @@ const Login = () => {
   const handleSignInWithGoogle = () => {
     createUserWithGoogle()
       .then((result) => {
-        if (result) {
-          const { displayName, email, photoURL } = result.user;
+        const { displayName, email, photoURL } = result.user;
+        const userDetails = {
+          userName: displayName,
+          userEmail: email,
+          userPhotoURL: photoURL,
+          userRole: "worker",
+          userAvailableCoin: 10,
+        };
 
-          // Redirect user to role selection
-          navigate("/selectRole", {
-            state: {
-              userName: displayName,
-              userEmail: email,
-              userPhotoURL: photoURL,
-            },
+        if (result.user) {
+          axiosPublic
+            .post("/users", userDetails)
+            .then((res) => {
+              if (res.data.insertedId) {
+                reset();
+                navigate("/dashboard");
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: `${displayName}Register Successful`,
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              } else {
+                Swal.fire({
+                  position: "center",
+                  icon: "error",
+                  title: `Database Error`,
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              }
+            })
+            .catch((err) => {
+              Swal.fire({
+                position: "center",
+                icon: "error",
+                title: `Error`,
+                text: err.message,
+                showConfirmButton: false,
+                timer: 2500,
+              });
+            });
+        } else {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: `Database Error`,
+            showConfirmButton: false,
+            timer: 1500,
           });
         }
       })
@@ -69,7 +110,7 @@ const Login = () => {
           title: "Login Unsuccessful",
           text: `${error.message}`,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 5500,
         });
       });
   };

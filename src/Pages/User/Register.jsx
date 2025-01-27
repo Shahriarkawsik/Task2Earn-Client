@@ -19,7 +19,7 @@ const Register = () => {
   const { createUserWithEmail } = useAuth();
 
   const onSubmit = (userInfo) => {
-    const coin = userInfo.userRole === "worker" ? 10 : 40;
+    const coin = userInfo.userRole === "worker" ? 10 : 50;
 
     const userDetails = {
       userName: userInfo.name,

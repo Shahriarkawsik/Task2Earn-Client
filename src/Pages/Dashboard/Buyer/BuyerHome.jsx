@@ -5,10 +5,7 @@ import useGetallTask from "../../../Hooks/useGetallTask";
 import useAuth from "../../../Hooks/useAuth";
 
 const BuyerHome = () => {
-  /*
-  Buyer will see his total task Count (task added by user),  pending Task( sum of all  
-required_workers count of his added Tasks), and total payment paid by the user. 
-  */
+
   const [tasks] = useGetallTask();
   const { user } = useAuth();
 

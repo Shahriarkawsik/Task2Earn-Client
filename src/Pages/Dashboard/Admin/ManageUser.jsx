@@ -13,11 +13,9 @@ const ManageUser = () => {
       event.target.value === "worker"
         ? 10
         : event.target.value === "buyer"
-        ? 40
+        ? 50
         : 0;
-    /*
-{acknowledged: true, modifiedCount: 1, upsertedId: null, upsertedCount: 0, matchedCount: 1}
-*/
+
     Swal.fire({
       title: "Are you sure?",
       icon: "warning",

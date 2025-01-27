@@ -4,23 +4,21 @@ import payment from "../../../assets/payment.png";
 import buyerImg from "../../../assets/buyer.png";
 import TriangleBarChart from "../../../Components/Chart/TriangleBarChart";
 import useGetAllUser from "../../../Hooks/useGetAllUser";
+import useGetallTask from "./../../../Hooks/useGetallTask";
 
 const AdminHome = () => {
   //#TODO: fetch all users
-  const [users, refetch] = useGetAllUser();
-  /*
-  admin will see the count of total worker, total buyer, total available coin(sum of all users coin ),total payments 
-  
-userRole
-"admin"
-userAvailableCoin
-0
-  */
+  const [users] = useGetAllUser();
+  const [tasks] = useGetallTask();
+
   const worker = users.filter((user) => user.userRole === "worker");
   const buyer = users.filter((user) => user.userRole === "buyer");
-  // const availableCoin = users.reduce()
   const availableCoin = users.reduce(
     (total, user) => total + user.userAvailableCoin,
+    0
+  );
+  const totalPayment = tasks.reduce(
+    (total, task) => total + task.totalPayableAmount,
     0
   );
 
@@ -66,7 +64,9 @@ userAvailableCoin
         <div className="bg-gradient-to-r from-[#6aaeff] to-[#b6f7ff] rounded-lg flex justify-center items-center gap-6 py-9">
           <img className="w-20 rounded-full" src={payment} alt="" />
           <div className="text-center">
-            <p className="font-Inter font-extrabold text-40 leading-12">1000</p>
+            <p className="font-Inter font-extrabold text-40 leading-12">
+              {totalPayment}
+            </p>
             <p className="text-2xl leading-7">Payment</p>
           </div>
         </div>

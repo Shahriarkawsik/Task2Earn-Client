@@ -7,7 +7,6 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 const ManageTask = () => {
   const [tasks, refetch] = useGetallTask();
   const axiosSecure = useAxiosSecure();
-  // #TODO: Completed task of this page
   const handleDeleteTask = (id) => {
     Swal.fire({
       title: "Are you sure?",
