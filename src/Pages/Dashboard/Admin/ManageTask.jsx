@@ -1,7 +1,52 @@
+import { FaRegTrashAlt } from "react-icons/fa";
 import SectionHeading from "../../../Components/SectionHeading";
+import useGetallTask from "./../../../Hooks/useGetallTask";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const ManageTask = () => {
+  const [tasks, refetch] = useGetallTask();
+  const axiosSecure = useAxiosSecure();
   // #TODO: Completed task of this page
+  const handleDeleteTask = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .delete(`/tasks/${id}`)
+          .then((res) => {
+            if (res.data.deletedCount) {
+              refetch();
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+                position: "center",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          })
+          .catch((err) => {
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "Error",
+              text: err.message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          });
+      }
+    });
+  };
   return (
     <section className="bg-[#f6f6f6] min-h-screen">
       <SectionHeading
@@ -10,68 +55,43 @@ const ManageTask = () => {
       />
       <div className="m-12 bg-white lg:w-11/12 mx-auto p-6 space-y-4">
         <h1 className="font-Cinzel font-bold text-3xl leading-11 text-color3">
-          Total Available Task:
-          {/* {users.length} */}
+          Total Available Task: {tasks.length}
         </h1>
         <div className="overflow-x-auto">
           <table className="table table-zebra">
             {/* head */}
             <thead className="bg-color1 text-white text-xl font-bold">
               <tr className="text-center">
-                {/* প্রতিটি কলাম:
-                 **Task Name: টাস্কের নাম যেমন "Complete Docs"
-                 **Description: টাস্কের সংক্ষিপ্ত বা বিস্তারিত বর্ণনা
-                 **Due Date: টাস্কটির শেষ সময়
-                 **Assigned To: যাকে টাস্কটি দেওয়া হয়েছে
-                 **Status: টাস্কটির বর্তমান অবস্থা (যেমন Pending, In Progress, Completed)
-                 **Actions: টাস্কটি সম্পাদন, মুছতে বা সম্পূর্ণ হিসেবে মার্ক করার জন্য বাটন */}
                 <th></th>
                 <th>Task Name</th>
                 <th>Description</th>
                 <th>Due Date</th>
-                <th>Assigned To</th>
+                <th>Buyer Email</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {/* row 1 */}
               {/* tasks */}
-              {/* {users.map((user, index) => (
-                <tr key={user._id} className="text-center text-20 font-medium">
+              {tasks.map((task, index) => (
+                <tr key={task._id} className="text-center text-20 font-medium">
                   <th>{index + 1}</th>
-                  <th>
-                    <img
-                      className="w-14 rounded-full"
-                      src={user.userPhotoURL}
-                      alt=""
-                    />
-                  </th>
-                  <th>{user.userName}</th>
-                  <th>{user.userEmail}</th>
-                  <th>{user.userRole}</th>
-                  <th>{user.userAvailableCoin}</th>
+                  <th>{task.taskTitle}</th>
+                  <th>{task.detailDescription}</th>
+                  <th>{task.completionDate}</th>
+                  <th>{task.buyerEmail}</th>
+                  <th>Status</th>
+
                   <th className="flex items-center justify-center gap-1">
-                    <button>
-                      <select
-                        onChange={(event) => handleUpdateRole(event, user._id)}
-                        defaultValue={user?.userRole || "worker"}
-                        className="bg-white text-[rgb(251,128,79)] p-3 rounded-md"
-                      >
-                        <option value="admin">Admin</option>
-                        <option value="buyer">Buyer</option>
-                        <option value="worker">Worker</option>
-                      </select>
-                    </button>
                     <button
-                      onClick={() => handleDeleteUser(user._id)}
+                      onClick={() => handleDeleteTask(task._id)}
                       className="bg-color1 text-white p-4 rounded-md text-2xl"
                     >
                       <FaRegTrashAlt />
                     </button>
                   </th>
                 </tr>
-              ))} */}
+              ))}
             </tbody>
           </table>
         </div>
