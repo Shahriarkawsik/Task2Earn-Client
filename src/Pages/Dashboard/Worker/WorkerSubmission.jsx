@@ -32,17 +32,12 @@ const WorkerSubmission = () => {
             <tbody>
               {/* row 1 */}
               {mySubmissions.map((submission, index) => (
-                <tr
-                  key={submission?._id}
-                  className="text-center text-20 font-medium"
-                >
+                <tr key={submission?._id} className="text-center text-20">
                   <th className="font-Cinzel">{index + 1}</th>
                   <th>{submission?.taskTitle}</th>
                   <th>{submission?.buyerName}</th>
                   <th>{submission?.buyerEmail}</th>
-                  <th className="text-green-600">
-                    {submission?.payableAmount}
-                  </th>
+                  <th>{submission?.payableAmount}</th>
                   <th
                     className={`${
                       submission?.status === "pending"

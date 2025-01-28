@@ -10,7 +10,10 @@ const WorkerHome = () => {
   const mySubmissions = submissions.filter(
     (submission) => submission.workerEmail === currentUser.userEmail
   );
-  
+  const pendingSubmission = mySubmissions.filter(
+    (submit) => submit.status === "pending"
+  );
+
   return (
     <section className="py-5">
       <h1 className="font-Cinzel font-semibold text-20 leading-11 text-color3">
@@ -28,7 +31,7 @@ and Total Earning ( sum of payable_amount of the worker where status is approved
           <img className="w-20" src={submitImg} alt="" />
           <div className="text-center">
             <p className="font-Inter font-extrabold text-40 leading-12">
-              {/* {worker?.length || 0} */} 0
+              {mySubmissions?.length || 0}
             </p>
             <p className="text-2xl leading-7">Total Submission</p>
           </div>
@@ -38,7 +41,7 @@ and Total Earning ( sum of payable_amount of the worker where status is approved
           <img className="w-20" src={pendingImg} alt="" />
           <div className="text-center">
             <p className="font-Inter font-extrabold text-40 leading-12">
-              {/* {buyer.length} */} 0
+              {pendingSubmission.length}
             </p>
             <p className="text-2xl leading-7">Pending Submission</p>
           </div>
