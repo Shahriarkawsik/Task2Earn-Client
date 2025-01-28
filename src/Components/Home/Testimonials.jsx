@@ -25,10 +25,6 @@ const Testimonials = () => {
         title={"testimonial"}
         subtitle={"---What Our Clients Say---"}
       />
-      {/* "userPhoto":
-        "https://media.defense.gov/2023/May/12/2003221988/1280/1280/0/230512-D-D0439-095.JPG",
-        "userName": "Bob Smith", "quote": "I love how easy it is to find work
-        here. The payment process is seamless and super fast!"  */}
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
         {testimonial.map((review) => (
           <SwiperSlide key={review._id}>

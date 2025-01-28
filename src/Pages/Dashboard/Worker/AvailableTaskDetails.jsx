@@ -1,10 +1,68 @@
 import { useParams } from "react-router-dom";
 import useGetallTask from "./../../../Hooks/useGetallTask";
+import { useForm } from "react-hook-form";
+import useCalculateCoin from "../../../Hooks/useCalculateCoin";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const AvailableTaskDetails = () => {
   const { id } = useParams();
-  const [tasks] = useGetallTask();
+  const [tasks, refetch] = useGetallTask();
   const [task] = tasks.filter((task) => task._id === id);
+  const [currentUser] = useCalculateCoin();
+  const axiosPublic = useAxiosPublic();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const currentDate = `${new Date().getDate()}-${
+    new Date().getMonth() + 1
+  }-${new Date().getFullYear()}`;
+
+  const onSubmit = (userInfo) => {
+    const submissionInfo = {
+      taskId: task?._id,
+      taskTitle: task?.taskTitle,
+      payableAmount: task?.payableAmount,
+      workerEmail: currentUser?.userEmail,
+      workerName: currentUser?.userName,
+      buyerName: task?.buyerName,
+      buyerEmail: task?.buyerEmail,
+      submissionDetails: userInfo?.submissionDetails,
+      submissionDate: currentDate,
+      status: "pending",
+    };
+
+    axiosPublic
+      .post("/submissions", submissionInfo)
+      .then((res) => {
+        if (res.data) {
+          reset();
+          refetch();
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Successfully submitted",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .catch((err) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Error",
+          text: err.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
+  };
 
   return (
     <section className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 font-Inter space-y-3">
@@ -31,7 +89,7 @@ const AvailableTaskDetails = () => {
       </p>
 
       <form
-        // onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         className="bg-gray-50 p-4 rounded-lg shadow-md space-y-3"
       >
         <label
@@ -40,21 +98,31 @@ const AvailableTaskDetails = () => {
         >
           Submission Details:
         </label>
-        <textarea
-          id="submissionDetails"
-          placeholder="Enter your submission details here..."
-          value={task?.taskDetail}
-          required
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300 "
-        ></textarea>
-        <button
-          type="submit"
-          className={`w-full p-3 text-white font-bold rounded-lg`}
-          // ${isSubmitting ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600" }
-          //   disabled={isSubmitting}
-        >
-          {/* {isSubmitting ? "Submitting..." : "Submit"} */}
-        </button>
+        <div>
+          <textarea
+            id="submissionDetails"
+            placeholder="Enter your submission details here..."
+            required
+            style={{
+              resize: "none",
+            }}
+            {...register("submissionDetails", { require: true })}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300 "
+          />
+          {errors.submissionDetails && (
+            <span className="text-red-600">
+              Submission Details URL is required
+            </span>
+          )}
+        </div>
+        <div className="text-center">
+          <button
+            type="submit"
+            className="w-1/3 mx-auto p-3 text-color3 bg-color5 font-bold rounded-lg"
+          >
+            Submit
+          </button>
+        </div>
       </form>
     </section>
   );

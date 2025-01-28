@@ -7,17 +7,16 @@ import { BsList } from "react-icons/bs";
 import useAuth from "../../Hooks/useAuth";
 // import useGetAllUser from "../../Hooks/useGetAllUser";
 const Dashboard = () => {
-  const [ currentUser] = useCalculateCoin();
+  const [currentUser] = useCalculateCoin();
   const { user } = useAuth();
   // const [users] = useGetAllUser();
-
 
   return (
     <section className="grid grid-cols-1 lg:grid-cols-9 xl:grid-cols-12">
       {/* Sidebar */}
       <div className="drawer lg:drawer-open lg:col-span-3 xl:col-span-2 ">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="h-fit w-full flex items-center justify-center gap-6 scroll-smooth">
+        <div className="h-fit w-full flex items-center justify-center gap-6 ">
           {/* Page content here */}
           <label
             htmlFor="my-drawer-2"
@@ -171,7 +170,7 @@ const Dashboard = () => {
             {/* coin and role */}
             <div className="flex flex-col items-center gap-2">
               {/* coin Image */}
-              <div className="flex items-center justify-center gap-1 px-2 py-1 rounded-xl backdrop-blur-md bg-orange-200">
+              <div className="flex items-center justify-center gap-1 px-2 py-1 rounded-xl backdrop-blur-md bg-orange-200 -z-10">
                 <img src={coin} alt="" className="w-10 h-10 rounded-full" />
                 <p className="text-2xl font-Cinzel font-bold">
                   {currentUser?.userAvailableCoin || 0}
@@ -188,7 +187,9 @@ const Dashboard = () => {
                 src={user?.photoURL}
                 alt="photo"
               />
-              <p className="font-semibold font-Inter">{user?.displayName}</p>
+              <p className="font-semibold font-Inter">
+                {currentUser?.userName}
+              </p>
             </div>
           </div>
           <div className="w-[5%] flex items-center justify-center text-3xl">

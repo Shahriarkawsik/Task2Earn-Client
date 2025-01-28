@@ -22,15 +22,26 @@ const WorkerTask = () => {
               <figure className="rounded-xl h-[250px]">
                 <img
                   className="w-full h-full rounded-xl"
-                  src="https://ucare.timepad.ru/11473ab5-b6f2-4143-9d97-c29304b95e8d/poster_event_2600657.jpg"
-                  alt=""
+                  src={task?.taskImageURL}
+                  alt={task?.taskTitle}
                 />
               </figure>
-              <p>Task Title : {task?.taskTitle}</p>
-              <p>Buyer Name : {task?.buyerName}</p>
-              <p>Completion Date : {task?.completionDate}</p>
-              <p>Payable Amount : {task?.payableAmount}</p>
-              <p>Required Workers : {task?.requiredWorkers}</p>
+
+              <p>
+                <strong>Task Title :</strong> {task?.taskTitle}
+              </p>
+              <p>
+                <strong>Buyer Name :</strong> {task?.buyerName}
+              </p>
+              <p>
+                <strong>Completion Date :</strong> {task?.completionDate}
+              </p>
+              <p>
+                <strong>Payable Amount :</strong> {task?.payableAmount}
+              </p>
+              <p>
+                <strong>Required Workers :</strong> {task?.requiredWorkers}
+              </p>
               <Link to={task?._id}>
                 <button className="px-4 py-3 rounded-xl bg-amber-300 text-xl">
                   View Details
