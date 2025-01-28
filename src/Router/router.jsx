@@ -17,6 +17,8 @@ import AdminHome from "../Pages/Dashboard/Admin/AdminHome";
 import ManageUser from "../Pages/Dashboard/Admin/ManageUser";
 import ManageTask from "../Pages/Dashboard/Admin/ManageTask";
 import BuyerUpdateTask from "../Pages/Dashboard/Buyer/BuyerUpdateTask";
+import AvailableTaskDetails from "../Pages/Dashboard/Worker/AvailableTaskDetails";
+import PaymentPage from "../Pages/Dashboard/Buyer/PaymentPage";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +53,10 @@ const router = createBrowserRouter([
         element: <WorkerTask />,
       },
       {
+        path: "workerTaskList/:id",
+        element: <AvailableTaskDetails />,
+      },
+      {
         path: "workerSubmission",
         element: <WorkerSubmission />,
       },
@@ -83,6 +89,10 @@ const router = createBrowserRouter([
         path: "buyerPayment",
         element: <BuyerPayment />,
       },
+      // {
+      //   path: "checkout/:id",
+      //   element: <PaymentPage />,
+      // },
       // Admin
       {
         path: "adminHome",
