@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useGetallTask from "./../../../Hooks/useGetallTask";
 import { useForm } from "react-hook-form";
 import useCalculateCoin from "../../../Hooks/useCalculateCoin";
@@ -11,7 +11,7 @@ const AvailableTaskDetails = () => {
   const [task] = tasks.filter((task) => task._id === id);
   const [currentUser] = useCalculateCoin();
   const axiosPublic = useAxiosPublic();
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -43,6 +43,7 @@ const AvailableTaskDetails = () => {
         if (res.data) {
           reset();
           refetch();
+          navigate("/dashboard/workerTaskList");
           Swal.fire({
             position: "center",
             icon: "success",

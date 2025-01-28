@@ -1,8 +1,16 @@
 import submitImg from "../../../assets/submitImg.png";
 import pendingImg from "../../../assets/pendingImg.png";
 import coin from "../../../assets/coin.png";
+import useGetAllSubmission from "../../../Hooks/useGetAllSubmission";
+import useCalculateCoin from "../../../Hooks/useCalculateCoin";
 
 const WorkerHome = () => {
+  const [submissions] = useGetAllSubmission();
+  const [currentUser] = useCalculateCoin();
+  const mySubmissions = submissions.filter(
+    (submission) => submission.workerEmail === currentUser.userEmail
+  );
+  
   return (
     <section className="py-5">
       <h1 className="font-Cinzel font-semibold text-20 leading-11 text-color3">
