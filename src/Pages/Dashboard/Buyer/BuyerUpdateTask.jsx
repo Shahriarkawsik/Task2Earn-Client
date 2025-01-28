@@ -1,16 +1,16 @@
 import { useForm } from "react-hook-form";
 import SectionHeading from "./../../../Components/SectionHeading";
-import useCalculateCoin from "../../../Hooks/useCalculateCoin";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useAxiosSecure from "./../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-import useAuth from "../../../Hooks/useAuth";
+import useGetallTask from "./../../../Hooks/useGetallTask";
 
-const BuyerAddTask = () => {
-  const [currentUser] = useCalculateCoin();
-  const navigate = useNavigate();
+const BuyerUpdateTask = () => {
   const axiosSecure = useAxiosSecure();
-  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [tasks, refetch] = useGetallTask();
+  const { id } = useParams();
+  const [task] = tasks.filter((task) => task._id === id);
 
   const {
     register,
@@ -21,70 +21,43 @@ const BuyerAddTask = () => {
 
   const onSubmit = (taskDetails) => {
     const taskInfo = {
-      payableAmount: taskDetails.payableAmount,
-      requiredWorkers: taskDetails.requiredWorkers,
-      completionDate: taskDetails.completionDate,
+      taskTitle: taskDetails.taskTitle,
       submissionInfo: taskDetails.submissionInfo,
       taskDetail: taskDetails.taskDetail,
-      taskImageURL: taskDetails.taskImageURL,
-      taskTitle: taskDetails.taskTitle,
-      totalPayableAmount:
-        taskDetails.requiredWorkers * taskDetails.payableAmount,
-      buyerEmail: user.email,
-      buyerName: user.displayName,
     };
 
-    if (
-      taskDetails.requiredWorkers * taskDetails.payableAmount <
-      currentUser?.userAvailableCoin
-    ) {
-      axiosSecure
-        .post("/tasks", taskInfo)
-        .then((res) => {
-          if (res.data) {
-            axiosSecure.patch(`/users/${currentUser._id}`, {
-              userRole: currentUser.userRole,
-              userAvailableCoin:
-                currentUser?.userAvailableCoin -
-                taskDetails.requiredWorkers * taskDetails.payableAmount,
-            });
-            reset();
-            Swal.fire({
-              position: "center",
-              icon: "success",
-              title: "Successfully submitted",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
-        })
-        .catch((err) => {
+    axiosSecure
+      .patch(`/tasks/${id}`, taskInfo)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          reset();
+          refetch();
+          navigate("dashboard/buyerTask");
           Swal.fire({
             position: "center",
-            icon: "error",
-            title: `Error`,
-            text: err.message,
+            icon: "success",
+            title: "Update Successful",
             showConfirmButton: false,
-            timer: 2500,
+            timer: 1500,
           });
+        }
+      })
+      .catch((err) => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Update Unsuccessful",
+          text: err.message,
+          showConfirmButton: false,
+          timer: 1500,
         });
-    } else {
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: `Submission Fail`,
-        text: "Please Purchase coin",
-        showConfirmButton: false,
-        timer: 2500,
       });
-      reset();
-      navigate("/dashboard/buyerPurchaseCoin");
-    }
   };
 
   return (
     <section className="bg-[#f6f6f6] min-h-screen">
-      <SectionHeading title={"ADD A Task"} subtitle={`---What's new?---`} />
+      <SectionHeading title={"Update A Task"} subtitle={`---What's new?---`} />
 
       <div className="m-4 sm:m-8 lg:m-12 bg-white max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
         <form
@@ -97,6 +70,7 @@ const BuyerAddTask = () => {
               Task Title*
             </label>
             <input
+              defaultValue={task?.taskTitle}
               type="text"
               className="w-full input input-bordered bg-white text-sm sm:text-base lg:text-lg rounded-md p-2 sm:p-3"
               placeholder="Type here..."
@@ -116,6 +90,7 @@ const BuyerAddTask = () => {
             </label>
             <input
               type="text"
+              defaultValue={task?.taskDetail}
               className="w-full input input-bordered bg-white text-sm sm:text-base lg:text-lg rounded-md p-2 sm:p-3"
               placeholder="Type here..."
               {...register("taskDetail", { require: true })}
@@ -134,6 +109,8 @@ const BuyerAddTask = () => {
               Required Workers*
             </label>
             <input
+              defaultValue={task?.requiredWorkers}
+              readOnly
               type="number"
               className="w-full input input-bordered bg-white text-sm sm:text-base lg:text-lg rounded-md p-2 sm:p-3"
               placeholder="Type here..."
@@ -154,6 +131,8 @@ const BuyerAddTask = () => {
             </label>
             <input
               type="number"
+              defaultValue={task?.payableAmount}
+              readOnly
               className="w-full input input-bordered bg-white text-sm sm:text-base lg:text-lg rounded-md p-2 sm:p-3"
               placeholder="Type here..."
               {...register("payableAmount", { require: true })}
@@ -173,6 +152,8 @@ const BuyerAddTask = () => {
             </label>
             <input
               type="date"
+              defaultValue={task?.completionDate}
+              readOnly
               className="w-full input input-bordered bg-white text-sm sm:text-base lg:text-lg rounded-md p-2 sm:p-3"
               {...register("completionDate", { require: true })}
               required
@@ -191,6 +172,7 @@ const BuyerAddTask = () => {
             </label>
             <input
               type="text"
+              defaultValue={task?.submissionInfo}
               className="w-full input input-bordered bg-white text-sm sm:text-base lg:text-lg rounded-md p-2 sm:p-3"
               placeholder="Type here..."
               {...register("submissionInfo", { require: true })}
@@ -210,6 +192,8 @@ const BuyerAddTask = () => {
             </label>
             <input
               type="url"
+              defaultValue={task?.taskImageURL}
+              readOnly
               className="w-full input input-bordered bg-white text-sm sm:text-base lg:text-lg rounded-md p-2 sm:p-3"
               placeholder="Type here..."
               {...register("taskImageURL", { require: true })}
@@ -224,7 +208,7 @@ const BuyerAddTask = () => {
 
           <input
             type="submit"
-            value={"Add Task"}
+            value={"Update Task"}
             className="bg-blue-500 hover:bg-blue-600 text-white text-lg font-bold rounded-lg py-2 px-4 col-span-1 sm:col-span-2"
           />
         </form>
@@ -233,4 +217,4 @@ const BuyerAddTask = () => {
   );
 };
 
-export default BuyerAddTask;
+export default BuyerUpdateTask;

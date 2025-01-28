@@ -74,13 +74,7 @@ const Login = () => {
                   timer: 1500,
                 });
               } else {
-                Swal.fire({
-                  position: "center",
-                  icon: "error",
-                  title: `Database Error`,
-                  showConfirmButton: false,
-                  timer: 1500,
-                });
+                navigate("/dashboard");
               }
             })
             .catch((err) => {

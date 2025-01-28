@@ -2,6 +2,7 @@ import { FaPen, FaRegTrashAlt } from "react-icons/fa";
 import SectionHeading from "../../../Components/SectionHeading";
 import useAuth from "../../../Hooks/useAuth";
 import useGetallTask from "../../../Hooks/useGetallTask";
+import { Link } from "react-router-dom";
 
 const BuyerTask = () => {
   const [tasks] = useGetallTask();
@@ -13,12 +14,10 @@ const BuyerTask = () => {
   const sortedTasks = currentUserTasks.sort((a, b) => {
     const dateA = new Date(a.completionDate);
     const dateB = new Date(b.completionDate);
-    return dateB - dateA; 
+    return dateB - dateA;
   });
-console.log(sortedTasks);
-  const handleUpdateTask = (id) => {
-    console.log(id);
-  };
+
+
   const handleDeleteTask = (id) => {
     console.log(id);
   };
@@ -55,12 +54,11 @@ console.log(sortedTasks);
                   <th>{task.requiredWorkers}</th>
                   <th>{task.payableAmount}</th>
                   <th className="flex items-center justify-center gap-1">
-                    <button
-                      onClick={() => handleUpdateTask(task._id)}
-                      className="bg-color1 text-white p-4 rounded-md text-2xl"
-                    >
-                      <FaPen />
-                    </button>
+                    <Link to={`/dashboard/buyerUpdateTask/${task._id}`}>
+                      <button className="bg-color1 text-white p-4 rounded-md text-2xl">
+                        <FaPen />
+                      </button>
+                    </Link>
                     <button
                       onClick={() => handleDeleteTask(task._id)}
                       className="bg-color1 text-white p-4 rounded-md text-2xl"

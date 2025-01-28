@@ -16,6 +16,7 @@ import BuyerPayment from "./../Pages/Dashboard/Buyer/BuyerPayment";
 import AdminHome from "../Pages/Dashboard/Admin/AdminHome";
 import ManageUser from "../Pages/Dashboard/Admin/ManageUser";
 import ManageTask from "../Pages/Dashboard/Admin/ManageTask";
+import BuyerUpdateTask from "../Pages/Dashboard/Buyer/BuyerUpdateTask";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: "buyerAddTask",
         element: <BuyerAddTask />,
+      },
+      {
+        path: "buyerUpdateTask/:id",
+        element: <BuyerUpdateTask />,
       },
       {
         path: "buyerTask",
