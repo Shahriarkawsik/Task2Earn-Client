@@ -28,6 +28,7 @@ const BuyerAddTask = () => {
       taskDetail: taskDetails.taskDetail,
       taskImageURL: taskDetails.taskImageURL,
       taskTitle: taskDetails.taskTitle,
+      taskStatus: "pending",
       totalPayableAmount:
         taskDetails.requiredWorkers * taskDetails.payableAmount,
       buyerEmail: user.email,
