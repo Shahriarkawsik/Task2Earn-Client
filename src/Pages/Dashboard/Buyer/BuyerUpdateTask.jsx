@@ -29,7 +29,6 @@ const BuyerUpdateTask = () => {
     axiosSecure
       .patch(`/tasks/${id}`, taskInfo)
       .then((res) => {
-        console.log(res.data);
         if (res.data) {
           reset();
           refetch();
