@@ -13,17 +13,19 @@ const WorkerHome = () => {
   const pendingSubmission = mySubmissions.filter(
     (submit) => submit.status === "pending"
   );
+  const approvedSubmission = mySubmissions.filter(
+    (submit) => submit.status === "approved"
+  );
+  const totalEarning = approvedSubmission.reduce(
+    (total, submit) => total + submit.payableAmount,
+    0
+  );
 
   return (
-    <section className="py-5">
+    <section className="py-5 space-y-8">
       <h1 className="font-Cinzel font-semibold text-20 leading-11 text-color3">
         Hi, Welcome Back!
       </h1>
-      {/*       
-      Workers will see the Total Submission (Count of all submissions made by the worker), Total 
-pending submission (Count of all submissions made by the worker where status is pending ), 
-and Total Earning ( sum of payable_amount of the worker where status is approved ).  
-      */}
       {/* TODO: worker যখন কাজ সাবমিট করবে তখন এই সাবমিশন পাব */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
         {/* ** Total Submission */}
@@ -51,10 +53,50 @@ and Total Earning ( sum of payable_amount of the worker where status is approved
           <img className="w-20 rounded-full" src={coin} alt="" />
           <div className="text-center">
             <p className="font-Inter font-extrabold text-40 leading-12">
-              {/* {availableCoin} */} 0
+              {totalEarning}
             </p>
             <p className="text-2xl leading-7">Total Earning</p>
           </div>
+        </div>
+      </div>
+      {/* Approved Submission */}
+      <div>
+        <h1 className="font-Cinzel font-semibold text-20 leading-11 text-color3">
+          Approved Submission
+        </h1>
+        <div className="overflow-x-auto">
+          <table className="table table-zebra">
+            {/* head */}
+            <thead className="bg-color1 text-white text-xl font-bold">
+              <tr className="text-center">
+                <th></th>
+                <th>Task Name</th>
+                <th>Buyer Name</th>
+                <th>Payment Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* row 1 */}
+              {approvedSubmission.map((submission, index) => (
+                <tr key={submission?._id} className="text-center text-20">
+                  <th className="font-Cinzel">{index + 1}</th>
+                  <th>{submission?.taskTitle}</th>
+                  <th>{submission?.buyerName}</th>
+                  <th>{submission?.payableAmount}</th>
+                  <th
+                    className={`${
+                      submission?.status === "pending"
+                        ? "text-red-600"
+                        : "text-green-600"
+                    }`}
+                  >
+                    {submission?.status}
+                  </th>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
