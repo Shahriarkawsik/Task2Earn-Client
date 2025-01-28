@@ -31,7 +31,7 @@ const BuyerPurchaseCoin = () => {
             <p>{card.coin} coin</p>
             <p>=</p>
             <p>$ {card.coinValue}</p>
-            <Link to={`/<pathName>/${index}`}>
+            <Link to={`/dashboard/checkout/${card.coinValue}`}>
               <button className="px-4 py-3 rounded-xl bg-amber-300 text-xl">
                 Purchase
               </button>

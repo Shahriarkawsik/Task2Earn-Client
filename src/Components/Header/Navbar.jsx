@@ -14,7 +14,7 @@ const Navbar = () => {
   const handleLogOut = () => {
     SignOutUser()
       .then((res) => {
-        if (res.data) {
+        if (res) {
           Swal.fire({
             position: "center",
             icon: "success",
@@ -27,7 +27,7 @@ const Navbar = () => {
       .catch((err) => {
         Swal.fire({
           position: "center",
-          icon: "success",
+          icon: "error",
           title: `Logout unsuccessful`,
           text: `${err.message}`,
           showConfirmButton: false,
@@ -103,7 +103,6 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        {/* TODO: if here have an user ,then show a available coin and user profile and logout button */}
         {user && (
           <div className="flex items-center justify-center gap-2">
             {/* coin Image */}
