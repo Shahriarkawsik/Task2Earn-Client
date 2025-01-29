@@ -9,7 +9,7 @@ import useGetAllUser from "../../../Hooks/useGetAllUser";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const BuyerHome = () => {
-  const [tasks] = useGetallTask();
+  const [tasks, taskRefetch] = useGetallTask();
   const { user } = useAuth();
   const [submissions] = useGetAllSubmission();
   const [users, refetch] = useGetAllUser();
@@ -82,7 +82,48 @@ const BuyerHome = () => {
       });
   };
   const handleRejectTask = (id) => {
-    console.log(id);
+    const [{ taskId }] = submissions.filter((submit) => submit?._id === id);
+    const [{ _id, requiredWorkers, taskTitle, taskDetail, submissionInfo }] =
+      tasks.filter((submit) => submit?._id === taskId);
+
+    // update submission Status
+    axiosSecure
+      .patch(`/submissions/${id}`, { status: "reject" })
+      .then((res) => {
+        if (res.data) {
+          taskRefetch();
+          // increase require worker
+          axiosSecure
+            .patch(`/tasks/${_id}`, {
+              taskTitle: taskTitle,
+              taskDetail: taskDetail,
+              submissionInfo: submissionInfo,
+              requiredWorkers: parseInt(requiredWorkers) + 1,
+            })
+            .then((res) => {
+              if (res.data) {
+                taskRefetch();
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "Successfully Rejected The Task",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              }
+            });
+        }
+      })
+      .catch((err) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Error",
+          text: err.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
   };
 
   return (
@@ -124,68 +165,76 @@ const BuyerHome = () => {
         </div>
       </div>
       {/* pending task */}
-      <div className="m-12 bg-white lg:w-11/12 mx-auto p-6 space-y-4">
-        <h1 className="font-Cinzel font-bold text-3xl leading-11 text-color3">
-          Total Pending Task: {currentUserTaskSubmission.length}
-        </h1>
-        <div className="overflow-x-auto">
-          <table className="table table-zebra">
-            {/* head */}
-            <thead className="bg-color1 text-white text-xl font-bold">
-              <tr className="text-center">
-                <th></th>
-                <th>Task Title</th>
-                <th>Worker Name</th>
-                <th>Payable Amount</th>
-                <th>
-                  <button>View Submission</button>
-                </th>
-                <th>Action</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {/* tasks */}
-              {currentUserTaskSubmission.map((submission, index) => (
-                <tr
-                  key={submission._id}
-                  className="text-center text-20 font-medium"
-                >
-                  <th>{index + 1}</th>
-                  <th>{submission.taskTitle}</th>
-                  <th>{submission.workerName}</th>
-                  <th>{submission.payableAmount}</th>
+      {currentUserTaskSubmission.length ? (
+        <div className="m-12 bg-white lg:w-11/12 mx-auto p-6 space-y-4">
+          <h1 className="font-Cinzel font-bold text-3xl leading-11 text-color3">
+            Total Pending Task: {currentUserTaskSubmission.length}
+          </h1>
+          <div className="overflow-x-auto">
+            <table className="table table-zebra">
+              {/* head */}
+              <thead className="bg-color1 text-white text-xl font-bold">
+                <tr className="text-center">
+                  <th></th>
+                  <th>Task Title</th>
+                  <th>Worker Name</th>
+                  <th>Payable Amount</th>
                   <th>
-                    <button
-                      className="bg-color1 text-white px-4 py-1 rounded-md "
-                      onClick={() =>
-                        handleViewSubmission(submission.submissionDetails)
-                      }
-                    >
-                      View Submission
-                    </button>
+                    <button>View Submission</button>
                   </th>
-                  {/* action */}
-                  <th className="flex items-center justify-center gap-1">
-                    <button
-                      onClick={() => handleApproveTask(submission._id)}
-                      className="bg-green-700 text-white px-4 py-1 rounded-md "
-                    >
-                      Approve
-                    </button>
-                    <button
-                      onClick={() => handleRejectTask(submission._id)}
-                      className="bg-red-600 text-white px-4 py-1 rounded-md "
-                    >
-                      Reject
-                    </button>
-                  </th>
+                  <th>Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+
+              <tbody>
+                {/* tasks */}
+                {currentUserTaskSubmission.map((submission, index) => (
+                  <tr
+                    key={submission._id}
+                    className="text-center text-20 font-medium"
+                  >
+                    <th>{index + 1}</th>
+                    <th>{submission.taskTitle}</th>
+                    <th>{submission.workerName}</th>
+                    <th>{submission.payableAmount}</th>
+                    <th>
+                      <button
+                        className="bg-color1 text-white px-4 py-1 rounded-md "
+                        onClick={() =>
+                          handleViewSubmission(submission.submissionDetails)
+                        }
+                      >
+                        View Submission
+                      </button>
+                    </th>
+                    {/* action */}
+                    <th className="flex items-center justify-center gap-1">
+                      <button
+                        onClick={() => handleApproveTask(submission._id)}
+                        className="bg-green-700 text-white px-4 py-1 rounded-md "
+                      >
+                        Approve
+                      </button>
+                      <button
+                        onClick={() => handleRejectTask(submission._id)}
+                        className="bg-red-600 text-white px-4 py-1 rounded-md "
+                      >
+                        Reject
+                      </button>
+                    </th>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="m-12 bg-white lg:w-11/12 mx-auto p-6 space-y-4">
+          <h1 className="font-Cinzel font-bold text-3xl leading-11 text-color3 text-center">
+            No pending data available.
+          </h1>
+        </div>
+      )}
     </section>
   );
 };
