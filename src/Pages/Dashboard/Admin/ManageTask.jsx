@@ -54,7 +54,7 @@ const ManageTask = () => {
       />
       <div className="m-12 bg-white lg:w-11/12 mx-auto p-6 space-y-4">
         <h1 className="font-Cinzel font-bold text-3xl leading-11 text-color3">
-          Total Available Task: {tasks.length}
+          Total Task: {tasks.length}
         </h1>
         <div className="overflow-x-auto">
           <table className="table table-zebra">
