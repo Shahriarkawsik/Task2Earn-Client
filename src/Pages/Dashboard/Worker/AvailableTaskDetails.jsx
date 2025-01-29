@@ -8,10 +8,11 @@ import Swal from "sweetalert2";
 const AvailableTaskDetails = () => {
   const { id } = useParams();
   const [tasks, refetch] = useGetallTask();
-  const [task] = tasks.filter((task) => task._id === id);
   const [currentUser] = useCalculateCoin();
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
+
+  const [task] = tasks.filter((task) => task._id === id);
   const {
     register,
     handleSubmit,
@@ -24,7 +25,7 @@ const AvailableTaskDetails = () => {
   }-${new Date().getFullYear()}`;
 
   const onSubmit = (userInfo) => {
-    const submissionInfo = {
+    const submissionData = {
       taskId: task?._id,
       taskTitle: task?.taskTitle,
       payableAmount: task?.payableAmount,
@@ -38,16 +39,38 @@ const AvailableTaskDetails = () => {
     };
 
     axiosPublic
-      .post("/submissions", submissionInfo)
+      .post("/submissions", submissionData)
       .then((res) => {
-        if (res.data) {
+        if (res.data.insertedId) {
           reset();
           refetch();
+          // decrease require worker
+          axiosPublic
+            .patch(`/tasks/${task?._id}`, {
+              taskTitle: task?.taskTitle,
+              taskDetail: task?.taskDetail,
+              submissionInfo: task?.submissionInfo,
+              requiredWorkers: parseInt(task?.requiredWorkers) - 1,
+            })
+            .then((res) => {
+              if (res.data) {
+                refetch();
+                navigate("/dashboard/workerTaskList");
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "Successfully submitted",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              }
+            });
+        } else {
           navigate("/dashboard/workerTaskList");
           Swal.fire({
             position: "center",
-            icon: "success",
-            title: "Successfully submitted",
+            icon: "error",
+            title: res.data.message,
             showConfirmButton: false,
             timer: 1500,
           });
@@ -67,12 +90,12 @@ const AvailableTaskDetails = () => {
 
   return (
     <section className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 font-Inter space-y-3">
-      <h1 className="text-2xl font-bold text-color3 ">{task?.taskTitle}</h1>
       <img
         src={task?.taskImageURL}
         alt={task?.taskTitle}
         className="w-full h-64 object-cover rounded-lg "
       />
+      <h1 className="text-2xl font-bold text-color3 ">{task?.taskTitle}</h1>
       <p className="text-color3 ">
         <strong>Description:</strong> {task?.taskDetail}
       </p>
