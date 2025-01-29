@@ -76,7 +76,6 @@ const Register = () => {
           showConfirmButton: false,
           timer: 2500,
         });
-       
       });
   };
   return (
@@ -164,12 +163,12 @@ const Register = () => {
                     placeholder="Enter your password"
                     {...register("password", {
                       required: "Password is required",
-                      // pattern: {
-                      //   value:
-                      //     /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                      //   message:
-                      //     "Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 8 characters long",
-                      // },
+                      pattern: {
+                        value:
+                          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,}$/,
+                        message:
+                          "Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 8 characters long",
+                      },
                     })}
                     className="w-full input input-bordered bg-white font-Inter text-xl rounded-md p-3 text-color4"
                   />
