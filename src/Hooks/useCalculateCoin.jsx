@@ -13,7 +13,7 @@ const useCalculateCoin = () => {
       return res.data;
     },
   });
-  return [currentUser];
+  return [currentUser, refetch];
 };
 
 export default useCalculateCoin;

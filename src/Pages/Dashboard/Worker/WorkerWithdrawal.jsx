@@ -5,6 +5,7 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useEffect, useState } from "react";
 import useCalculateCoin from "./../../../Hooks/useCalculateCoin";
 import coinImg from "../../../assets/coin.png";
+import Swal from "sweetalert2";
 
 const WorkerWithdrawal = () => {
   const {
@@ -20,17 +21,52 @@ const WorkerWithdrawal = () => {
   }, [coin]);
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
-  const [currentUser] = useCalculateCoin();
-  console.log("withdrawAmount", withdrawAmount);
+  const [currentUser, refetch] = useCalculateCoin();
+  const currentDate = `${new Date().getDate()}-${
+    new Date().getMonth() + 1
+  }-${new Date().getFullYear()}`;
+
   const onSubmit = (userInfo) => {
-    /*
-     worker_email, worker_name, 
-withdrawal_coin, withdrawal_amount, payment_system, withdraw_date, and a status (pending) 
-    ** এখানে ২ টি কাজ করতে হবে ।
-      **১। Worker এর coin কমাতে হবে 
-      **২। withdraw collection এ  post কতে হবে ।
-    */
-    console.log(userInfo);
+    const withdrawDetails = {
+      workerEmail: currentUser?.userEmail,
+      workerName: currentUser?.userName,
+      withdrawalCoin: userInfo.coinWithDraw,
+      withdrawalAmount: withdrawAmount.toFixed(2),
+      withdrawalDate: currentDate,
+      paymentSystem: userInfo.paymentSystem,
+      status: "pending",
+    };
+
+    axiosPublic
+      .post("withdrawals", withdrawDetails)
+      .then((res) => {
+        if (res.data) {
+          reset();
+          refetch();
+          //here update user coin
+          axiosPublic
+            .patch(`/users/${currentUser?._id}`, {
+              userRole: currentUser?.userRole,
+              userAvailableCoin:
+                currentUser?.userAvailableCoin - userInfo.coinWithDraw,
+            })
+            .then((res) => {
+              if (res.data) {
+                refetch();
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "withdrawal Successful",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              }
+            });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <section className="bg-[#f6f6f6] min-h-screen my-5 ">
@@ -120,7 +156,7 @@ withdrawal_coin, withdrawal_amount, payment_system, withdraw_date, and a status 
                   <option value="nagad">Nagad</option>
                   <option value="other">Other</option>
                 </select>
-                {errors.profileURL && (
+                {errors.paymentSystem && (
                   <span className="text-red-600">
                     Payment System is required
                   </span>
