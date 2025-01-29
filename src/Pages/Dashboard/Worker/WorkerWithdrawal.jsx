@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import SectionHeading from "../../../Components/SectionHeading";
-import { useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useEffect, useState } from "react";
 import useCalculateCoin from "./../../../Hooks/useCalculateCoin";
@@ -19,7 +18,6 @@ const WorkerWithdrawal = () => {
   useEffect(() => {
     setWithdrawAmount(coin * 0.05);
   }, [coin]);
-  const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
   const [currentUser, refetch] = useCalculateCoin();
   const currentDate = `${new Date().getDate()}-${
@@ -28,6 +26,7 @@ const WorkerWithdrawal = () => {
 
   const onSubmit = (userInfo) => {
     const withdrawDetails = {
+      workerId: currentUser?._id,
       workerEmail: currentUser?.userEmail,
       workerName: currentUser?.userName,
       withdrawalCoin: userInfo.coinWithDraw,
@@ -36,32 +35,19 @@ const WorkerWithdrawal = () => {
       paymentSystem: userInfo.paymentSystem,
       status: "pending",
     };
-
     axiosPublic
       .post("withdrawals", withdrawDetails)
       .then((res) => {
         if (res.data) {
           reset();
           refetch();
-          //here update user coin
-          axiosPublic
-            .patch(`/users/${currentUser?._id}`, {
-              userRole: currentUser?.userRole,
-              userAvailableCoin:
-                currentUser?.userAvailableCoin - userInfo.coinWithDraw,
-            })
-            .then((res) => {
-              if (res.data) {
-                refetch();
-                Swal.fire({
-                  position: "center",
-                  icon: "success",
-                  title: "withdrawal Successful",
-                  showConfirmButton: false,
-                  timer: 1500,
-                });
-              }
-            });
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "withdrawal Successful",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         }
       })
       .catch((err) => {
@@ -73,9 +59,9 @@ const WorkerWithdrawal = () => {
       <SectionHeading title={"Withdrawal"} subtitle={"---Earn More---"} />
 
       <div className="my-12 space-y-6 w-10/12 mx-auto">
-        <h1 className="font-Inter font-bold text-40 leading-48 text-color2 text-center">
+        {/* <h1 className="font-Inter font-bold text-40 leading-48 text-color2 text-center">
           Withdrawal
-        </h1>
+        </h1> */}
         {/* card */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-gradient-to-r from-[#BB34F5] to-[#FCDCFF] rounded-lg flex justify-center items-center gap-6 py-9">
@@ -98,7 +84,7 @@ const WorkerWithdrawal = () => {
           </div>
         </div>
         {/* Form */}
-        <div className="w-2/3 mx-auto space-y-2">
+        <div className="w-2/3 mx-auto space-y-2 shadow-2xl">
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="card-body text-xl "
