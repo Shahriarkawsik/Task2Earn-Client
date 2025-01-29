@@ -17,7 +17,7 @@ const WorkerHome = () => {
     (submit) => submit.status === "approved"
   );
   const totalEarning = approvedSubmission.reduce(
-    (total, submit) => total + submit.payableAmount,
+    (total, submit) => total + parseInt(submit.payableAmount),
     0
   );
 
