@@ -73,14 +73,23 @@ const ManageTask = () => {
             <tbody>
               {/* tasks */}
               {tasks.map((task, index) => (
-                <tr key={task._id} className="text-center text-20 font-medium">
+                <tr key={task._id} className="text-center">
                   <th>{index + 1}</th>
                   <th>{task.taskTitle}</th>
                   <th>{task.taskDetail}</th>
                   <th>{task.completionDate}</th>
                   <th>{task.buyerEmail}</th>
-                  <th>Status</th>
-
+                  <th
+                    className={`${
+                      task?.taskStatus === "pending"
+                        ? "text-red-600"
+                        : task?.taskStatus === "onProgress"
+                        ? "text-yellow-500"
+                        : "text-green-600"
+                    }`}
+                  >
+                    {task.taskStatus}
+                  </th>
                   <th className="flex items-center justify-center gap-1">
                     <button
                       onClick={() => handleDeleteTask(task._id)}
