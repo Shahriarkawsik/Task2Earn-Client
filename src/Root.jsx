@@ -13,9 +13,7 @@ const Root = () => {
       <div className="min-h-screen">
         <Outlet />
       </div>
-      {pathname !== "/register" &&
-        pathname !== "/login" &&
-        pathname !== "/selectRole" && <Footer />}
+      {pathname !== "/register" && pathname !== "/login" && <Footer />}
     </div>
   );
 };
