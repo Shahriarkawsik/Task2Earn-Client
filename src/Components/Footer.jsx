@@ -1,7 +1,5 @@
 import facebook from "../assets/facebook.png";
 import linkedIn from "../assets/linkedIn.png";
-import github from "../assets/github.png";
-import { FaFacebook } from "react-icons/fa";
 import { GrGithub } from "react-icons/gr";
 const Footer = () => {
   return (
