@@ -101,13 +101,13 @@ const BuyerTask = () => {
     <section className="bg-[#f6f6f6] min-h-screen">
       <SectionHeading title={"My Task's"} subtitle={"---How to do??---"} />
       <div className="m-12 bg-white lg:w-11/12 mx-auto p-6 space-y-4">
-        <h1 className="font-Cinzel font-bold text-3xl leading-11 text-color3">
+        <h1 className="font-Cinzel font-bold text-2xl sm:text-3xl leading-11 text-color3">
           MY POSTED Task: {currentUserTasks.length}
         </h1>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto ">
           <table className="table table-zebra">
             {/* head */}
-            <thead className="bg-color1 text-white text-xl font-bold">
+            <thead className="bg-color1 text-white text-xl font-medium sm:font-bold ">
               <tr className="text-center">
                 <th></th>
                 <th>Task Name</th>
@@ -123,7 +123,7 @@ const BuyerTask = () => {
             <tbody>
               {/* tasks */}
               {sortedTasks.map((task, index) => (
-                <tr key={task._id} className="text-center text-20 font-medium">
+                <tr key={task._id} className="text-center 2xl:text-20">
                   <th>{index + 1}</th>
                   <th>{task.taskTitle}</th>
                   <th>{task.taskDetail}</th>

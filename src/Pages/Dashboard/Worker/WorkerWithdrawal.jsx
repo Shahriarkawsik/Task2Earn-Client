@@ -64,7 +64,7 @@ const WorkerWithdrawal = () => {
         </h1> */}
         {/* card */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-gradient-to-r from-[#BB34F5] to-[#FCDCFF] rounded-lg flex justify-center items-center gap-6 py-9">
+          <div className="bg-gradient-to-r from-[#BB34F5] to-[#FCDCFF] rounded-lg flex justify-center items-center sm:gap-6 py-9">
             <img className="w-20" src={coinImg} alt="" />
             <div className="text-center">
               <p className="font-Inter font-extrabold text-40 leading-12">
@@ -73,7 +73,7 @@ const WorkerWithdrawal = () => {
               <p className="text-2xl leading-7">Total Available Coin</p>
             </div>
           </div>
-          <div className="bg-gradient-to-r from-[#d3a256] to-[#fde8c0] rounded-lg flex justify-center items-center gap-6 py-9">
+          <div className="bg-gradient-to-r from-[#d3a256] to-[#fde8c0] rounded-lg flex justify-center items-center sm:gap-6 py-9">
             <img className="w-20" src={coinImg} alt="" />
             <div className="text-center">
               <p className="font-Inter font-extrabold text-40 leading-12">
@@ -84,7 +84,7 @@ const WorkerWithdrawal = () => {
           </div>
         </div>
         {/* Form */}
-        <div className="w-2/3 mx-auto space-y-2 shadow-2xl">
+        <div className="lg:w-2/3 mx-auto space-y-2 shadow-2xl">
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="card-body text-xl "

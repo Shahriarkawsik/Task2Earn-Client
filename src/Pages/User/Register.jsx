@@ -7,6 +7,8 @@ import useAxiosPublic from "./../../Hooks/useAxiosPublic";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 
+const imageHostingKey = import.meta.env.VITE_IMAGEBB_HOSTING_KEY;
+const imageHostingAPI = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
 const Register = () => {
   const {
     register,
@@ -18,13 +20,19 @@ const Register = () => {
   const axiosPublic = useAxiosPublic();
   const { createUserWithEmail } = useAuth();
 
-  const onSubmit = (userInfo) => {
+  const onSubmit = async (userInfo) => {
+    const imageFile = { image: userInfo.profileURL[0] };
+    const res = await axiosPublic.post(imageHostingAPI, imageFile, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
     const coin = userInfo.userRole === "worker" ? 10 : 50;
 
     const userDetails = {
       userName: userInfo.name,
       userEmail: userInfo.email,
-      userPhotoURL: userInfo.profileURL,
+      userPhotoURL: res.data.data.display_url,
       userRole: userInfo.userRole,
       userAvailableCoin: coin,
     };
@@ -138,13 +146,12 @@ const Register = () => {
                 {/* Profile URL */}
                 <div className="w-full space-y-2">
                   <label className="fieldset-label font-Inter font-semibold text-xl leading-6">
-                    Profile URL*
+                    Image file*
                   </label>
                   <input
-                    type="url"
-                    placeholder="Type here...."
+                    type="file"
+                    className="file-input file-input-ghost"
                     {...register("profileURL", { require: true })}
-                    className="w-full input input-bordered bg-white font-Inter text-xl rounded-md p-3 text-color4"
                     required
                   />
                   {errors.profileURL && (

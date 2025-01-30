@@ -19,7 +19,7 @@ const WorkerSubmission = () => {
         <div className="overflow-x-auto">
           <table className="table table-zebra">
             {/* head */}
-            <thead className="bg-color1 text-white text-xl font-bold">
+            <thead className="bg-color1 text-white text-xl font-medium sm:font-bold">
               <tr className="text-center">
                 <th></th>
                 <th>Task Name</th>
@@ -32,7 +32,7 @@ const WorkerSubmission = () => {
             <tbody>
               {/* row 1 */}
               {mySubmissions.map((submission, index) => (
-                <tr key={submission?._id} className="text-center text-20">
+                <tr key={submission?._id} className="text-center 2xl:text-20">
                   <th className="font-Cinzel">{index + 1}</th>
                   <th>{submission?.taskTitle}</th>
                   <th>{submission?.buyerName}</th>

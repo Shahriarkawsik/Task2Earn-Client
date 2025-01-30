@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 const SectionHeading = ({ subtitle, title, className }) => {
   return (
     <div
-      className={`flex flex-col items-center justify-center mt-10 font-Inter space-y-5 `}
+      className={`flex flex-col items-center justify-center mt-10 font-Inter space-y-5 text-center`}
     >
       <p className={`text-color5 text-xl leading-6`}>{subtitle}</p>
       <h1

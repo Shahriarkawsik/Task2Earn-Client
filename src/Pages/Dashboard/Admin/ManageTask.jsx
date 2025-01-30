@@ -59,7 +59,7 @@ const ManageTask = () => {
         <div className="overflow-x-auto">
           <table className="table table-zebra">
             {/* head */}
-            <thead className="bg-color1 text-white text-xl font-bold">
+            <thead className="bg-color1 text-white text-xl font-medium sm:font-bold ">
               <tr className="text-center">
                 <th></th>
                 <th>Task Name</th>
@@ -73,7 +73,7 @@ const ManageTask = () => {
             <tbody>
               {/* tasks */}
               {tasks.map((task, index) => (
-                <tr key={task._id} className="text-center">
+                <tr key={task._id} className="text-center 2xl:text-20">
                   <th>{index + 1}</th>
                   <th>{task.taskTitle}</th>
                   <th>{task.taskDetail}</th>

@@ -26,7 +26,6 @@ const WorkerHome = () => {
       <h1 className="font-Cinzel font-semibold text-20 leading-11 text-color3">
         Hi, Welcome Back!
       </h1>
-      {/* TODO: worker যখন কাজ সাবমিট করবে তখন এই সাবমিশন পাব */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
         {/* ** Total Submission */}
         <div className="bg-gradient-to-r from-[#BB34F5] to-[#FCDCFF] rounded-lg flex justify-center items-center gap-6 py-9">
@@ -60,14 +59,14 @@ const WorkerHome = () => {
         </div>
       </div>
       {/* Approved Submission */}
-      <div>
-        <h1 className="font-Cinzel font-semibold text-20 leading-11 text-color3">
+      <div className="space-y-4">
+        <h1 className="font-Cinzel font-bold text-3xl leading-11 text-color3">
           Approved Submission
         </h1>
         <div className="overflow-x-auto">
           <table className="table table-zebra">
             {/* head */}
-            <thead className="bg-color1 text-white text-xl font-bold">
+            <thead className="bg-color1 text-white text-xl font-medium sm:font-bold">
               <tr className="text-center">
                 <th></th>
                 <th>Task Name</th>
@@ -79,7 +78,10 @@ const WorkerHome = () => {
             <tbody>
               {/* row 1 */}
               {approvedSubmission.map((submission, index) => (
-                <tr key={submission?._id} className="text-center text-20">
+                <tr
+                  key={submission?._id}
+                  className="text-center sm:text-xl 2xl:text-20"
+                >
                   <th className="font-Cinzel">{index + 1}</th>
                   <th>{submission?.taskTitle}</th>
                   <th>{submission?.buyerName}</th>

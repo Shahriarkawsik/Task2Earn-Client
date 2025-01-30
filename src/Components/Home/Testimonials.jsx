@@ -34,10 +34,10 @@ const Testimonials = () => {
                 src={review.userPhoto}
                 alt=""
               />
-              <FaQuoteLeft className="text-6xl text-color2 mx-auto" />
+              <FaQuoteLeft className="text-4xl sm:text-6xl text-color2 mx-auto" />
 
-              <div className="space-y-2 text-center">
-                <p className="w-5/6 mx-auto text-color4 text-xl leading-6 font-Inter">
+              <div className="space-y-5 text-center">
+                <p className="w-5/6 mx-auto text-color4 text-xl leading-6 font-Inter max-sm:text-justify">
                   {review.quote}
                 </p>
                 <h1 className="text-color8 font-Inter font-semibold text-3xl leading-7">

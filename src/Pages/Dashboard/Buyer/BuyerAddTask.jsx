@@ -32,7 +32,7 @@ const BuyerAddTask = () => {
         "content-type": "multipart/form-data",
       },
     });
-    // console.log(res.data.data.display_url);
+
 
     // Form থেকে পাওয়া data
     const taskInfo = {
@@ -109,7 +109,7 @@ const BuyerAddTask = () => {
           className="space-y-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4"
         >
           {/* Task Title */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             <label className="font-semibold text-sm sm:text-base lg:text-lg">
               Task Title*
             </label>
@@ -127,7 +127,7 @@ const BuyerAddTask = () => {
             )}
           </div>
           {/* Task Detail */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             <label className="font-semibold text-sm sm:text-base lg:text-lg">
               Task Detail*
             </label>
@@ -146,7 +146,7 @@ const BuyerAddTask = () => {
           </div>
 
           {/* Required Workers */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             <label className="font-semibold text-sm sm:text-base lg:text-lg">
               Required Workers*
             </label>
@@ -165,7 +165,7 @@ const BuyerAddTask = () => {
           </div>
 
           {/* Payable Amount */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             <label className="font-semibold text-sm sm:text-base lg:text-lg">
               Payable Amount*
             </label>
@@ -184,7 +184,7 @@ const BuyerAddTask = () => {
           </div>
 
           {/* Completion Date */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             <label className="font-semibold text-sm sm:text-base lg:text-lg">
               Completion Date*
             </label>
@@ -202,7 +202,7 @@ const BuyerAddTask = () => {
           </div>
 
           {/* Submission Info */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             <label className="font-semibold text-sm sm:text-base lg:text-lg">
               Submission Info*
             </label>
@@ -221,8 +221,8 @@ const BuyerAddTask = () => {
           </div>
 
           {/* Task Image URL */}
-          <div className="space-y-2">
-            <label className="font-semibold text-sm sm:text-base lg:text-lg">
+          <div className="space-y-3">
+            <label className="fieldset-label font-Inter font-semibold text-xl leading-6">
               Image file*
             </label>
             <input

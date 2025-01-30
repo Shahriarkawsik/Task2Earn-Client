@@ -34,7 +34,7 @@ const Dashboard = () => {
           </Link>
         </div>
 
-        <div className="drawer-side overflow-hidden">
+        <div className="drawer-side overflow-hidden z-50">
           <label
             htmlFor="my-drawer-2"
             aria-label="close sidebar"
@@ -164,36 +164,42 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="lg:col-span-6 xl:col-span-10 bg-[rgb(246, 246, 246)] min-h-screen px-3 pt-10 ">
+      <div className="lg:col-span-6 xl:col-span-10 bg-[rgb(246, 246, 246)] min-h-screen px-2 sm:px-3 pt-10 ">
         <div className="flex rounded-xl shadow-xl">
-          <div className="w-[95%] flex justify-end items-center  p-2">
-            {/* gap-5 */}
+          <div className="w-[85%]  flex justify-end items-center py-2 sm:gap-5">
+            {/* sm:w-[90%] lg:w-[95%] */}
             {/* coin and role */}
             <div className="flex flex-col items-center gap-2">
               {/* coin Image */}
-              <div className="flex items-center justify-center gap-1 px-2 py-1 rounded-xl backdrop-blur-md bg-orange-200 -z-10">
-                <img src={coin} alt="" className="w-10 h-10 rounded-full" />
-                <p className="text-2xl font-Cinzel font-bold">
+              <div className="flex items-center justify-center min-sm:gap-6 px-2 py-1 rounded-md sm:rounded-xl backdrop-blur-md bg-orange-200 -z-10">
+                <img
+                  src={coin}
+                  alt=""
+                  className="max-sm:w-10 max-sm:h-10 sm:w-10 sm:h-10 lg:w-10 lg:h-10 rounded-full"
+                />
+                <p className="text-2xl sm:text-3xl lg:text-2xl font-Cinzel font-bold">
                   {currentUser?.userAvailableCoin || 0}
                 </p>
               </div>
-              <p className="font-semibold font-Inter uppercase">
+              {/* user role */}
+              <p className="font-semibold font-Inter uppercase sm:text-xl">
                 {currentUser?.userRole}
               </p>
             </div>
             {/* user info */}
-            <div className="flex flex-col justify-center items-center gap-3">
+            <div className="flex flex-col justify-center items-center gap-1 ">
               <img
                 className="w-12 h-12 rounded-full"
                 src={user?.photoURL}
                 alt="photo"
               />
-              <p className="font-semibold font-Inter">
+              <p className="font-semibold font-Inter sm:text-xl text-center">
                 {currentUser?.userName}
               </p>
             </div>
           </div>
-          <div className="w-[5%] flex items-center justify-center text-3xl">
+          {/* notification */}
+          <div className="w-[15%] flex items-center justify-center text-3xl">
             <BiSolidBellRing />
           </div>
         </div>

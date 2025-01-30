@@ -108,7 +108,7 @@ const ManageUser = () => {
         <div className="overflow-x-auto">
           <table className="table table-zebra">
             {/* head */}
-            <thead className="bg-color1 text-white text-xl font-bold">
+            <thead className="bg-color1 text-white text-xl font-medium sm:font-bold ">
               <tr className="text-center">
                 <th></th>
                 <th>Photo</th>
@@ -122,7 +122,7 @@ const ManageUser = () => {
             <tbody>
               {/* row 1 */}
               {users.map((user, index) => (
-                <tr key={user._id} className="text-center text-20 font-medium">
+                <tr key={user._id} className="text-center 2xl:text-20">
                   <th className="font-Cinzel">{index + 1}</th>
                   <th>
                     <img

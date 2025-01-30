@@ -34,19 +34,19 @@ const SwiperSlider = () => {
               backgroundRepeat: "no-repeat",
               backgroundSize: "100% 100%",
             }}
-            className="w-full h-[300px] lg:h-[550px] flex flex-col gap-2 lg:gap-5 justify-center items-center font-Poppins"
+            className="w-full h-[300px] sm:h-[450px] lg:h-[550px] flex flex-col gap-2 lg:gap-5 justify-center items-center font-Cinzel text-center"
           >
             <h2
-              data-aos="fade-up"
-              data-aos-duration="1000"
-              className="z-20 text-xl sm:text-4xl lg:text-6xl leading-5 font-extrabold sm:font-normal hover:text-color4 text-white py-2 sm:py-5  lg:py-7 rounded-lg Nothing"
+              // data-aos="fade-up"
+              // data-aos-duration="1000"
+              className=" text-xl sm:text-4xl lg:text-6xl leading-5 font-extrabold sm:font-normal hover:text-color4 text-white py-2 sm:py-5  lg:py-7 rounded-lg Nothing"
             >
               {task.taskTitle}
             </h2>
             <h3
-              data-aos="fade-up"
-              data-aos-duration="1000"
-              className="z-20 text-xl sm:text-xl lg:text-2xl leading-5 font-extrabold sm:font-normal hover:text-color4 text-white py-2 sm:py-5  lg:py-7 rounded-lg Nothing"
+              // data-aos="fade-up"
+              // data-aos-duration="1000"
+              className=" max-sm:w-[90%]  sm:text-xl lg:text-2xl leading-5 font-medium sm:font-normal hover:text-color4 text-white py-2 sm:py-5  lg:py-7 rounded-lg Nothing"
             >
               {task.taskDetail}
             </h3>
