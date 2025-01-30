@@ -22,7 +22,6 @@ const Footer = () => {
             {/* github */}
             <button>
               <a href="https://github.com/Shahriarkawsik">
-                {/* <img src={github} alt="" /> */}
                 <GrGithub className="text-white text-5xl" />
               </a>
             </button>

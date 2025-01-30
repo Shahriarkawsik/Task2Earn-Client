@@ -5,11 +5,16 @@ import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "./../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAuth from "../../../Hooks/useAuth";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+
+const imageHostingKey = import.meta.env.VITE_IMAGEBB_HOSTING_KEY;
+const imageHostingAPI = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
 
 const BuyerAddTask = () => {
   const [currentUser] = useCalculateCoin();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
 
   const {
@@ -19,14 +24,24 @@ const BuyerAddTask = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (taskDetails) => {
+  const onSubmit = async (taskDetails) => {
+    // Image
+    const imageFile = { image: taskDetails.taskImageURL[0] };
+    const res = await axiosPublic.post(imageHostingAPI, imageFile, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+    // console.log(res.data.data.display_url);
+
+    // Form থেকে পাওয়া data
     const taskInfo = {
       payableAmount: taskDetails.payableAmount,
       requiredWorkers: taskDetails.requiredWorkers,
       completionDate: taskDetails.completionDate,
       submissionInfo: taskDetails.submissionInfo,
       taskDetail: taskDetails.taskDetail,
-      taskImageURL: taskDetails.taskImageURL,
+      taskImageURL: res.data.data.display_url,
       taskTitle: taskDetails.taskTitle,
       taskStatus: "pending",
       totalPayableAmount:
@@ -35,6 +50,7 @@ const BuyerAddTask = () => {
       buyerName: user.displayName,
     };
 
+    // check user current coin
     if (
       taskDetails.requiredWorkers * taskDetails.payableAmount <
       currentUser?.userAvailableCoin
@@ -207,12 +223,11 @@ const BuyerAddTask = () => {
           {/* Task Image URL */}
           <div className="space-y-2">
             <label className="font-semibold text-sm sm:text-base lg:text-lg">
-              Task Image URL*
+              Image file*
             </label>
             <input
-              type="url"
-              className="w-full input input-bordered bg-white text-sm sm:text-base lg:text-lg rounded-md p-2 sm:p-3"
-              placeholder="Type here..."
+              type="file"
+              className="file-input file-input-ghost"
               {...register("taskImageURL", { require: true })}
               required
             />

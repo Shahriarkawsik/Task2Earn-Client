@@ -5,11 +5,11 @@ import useCalculateCoin from "../../Hooks/useCalculateCoin";
 import { BiSolidBellRing } from "react-icons/bi";
 import { BsList } from "react-icons/bs";
 import useAuth from "../../Hooks/useAuth";
-// import useGetAllUser from "../../Hooks/useGetAllUser";
+import Footer from "../../Components/Footer";
+
 const Dashboard = () => {
   const [currentUser] = useCalculateCoin();
   const { user } = useAuth();
-  // const [users] = useGetAllUser();
 
   return (
     <section className="grid grid-cols-1 lg:grid-cols-9 xl:grid-cols-12">
@@ -166,7 +166,8 @@ const Dashboard = () => {
       </div>
       <div className="lg:col-span-6 xl:col-span-10 bg-[rgb(246, 246, 246)] min-h-screen px-3 pt-10 ">
         <div className="flex rounded-xl shadow-xl">
-          <div className="w-[95%] flex justify-end items-center gap-5 p-2">
+          <div className="w-[95%] flex justify-end items-center  p-2">
+            {/* gap-5 */}
             {/* coin and role */}
             <div className="flex flex-col items-center gap-2">
               {/* coin Image */}
@@ -196,7 +197,10 @@ const Dashboard = () => {
             <BiSolidBellRing />
           </div>
         </div>
-        <Outlet />
+        <div className="min-h-[66%]">
+          <Outlet />
+        </div>
+        <Footer />
       </div>
     </section>
   );

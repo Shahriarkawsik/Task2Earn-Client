@@ -77,7 +77,7 @@ const WorkerWithdrawal = () => {
             <img className="w-20" src={coinImg} alt="" />
             <div className="text-center">
               <p className="font-Inter font-extrabold text-40 leading-12">
-                $ {currentUser?.userAvailableCoin * 0.05}
+                $ {(currentUser?.userAvailableCoin * 0.05).toFixed(2)}
               </p>
               <p className="text-2xl leading-7">Available Amount</p>
             </div>
