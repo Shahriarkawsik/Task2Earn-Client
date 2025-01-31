@@ -131,7 +131,7 @@ const Login = () => {
             Login
           </h1>
           {/* Form */}
-          <div className="w-2/3 mx-auto space-y-2">
+          <div className="w-11/12 lg:w-2/3 mx-auto space-y-2">
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="card-body text-xl "

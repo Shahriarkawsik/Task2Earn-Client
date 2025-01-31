@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import SectionHeading from "../../../Components/SectionHeading";
 import useGetallTask from "../../../Hooks/useGetallTask";
+import HelmetTitle from "../../../Components/HelmetTitle";
 
 const WorkerTask = () => {
   const [tasks] = useGetallTask();
@@ -8,6 +9,7 @@ const WorkerTask = () => {
 
   return (
     <section className="bg-[#f6f6f6] min-h-screen">
+      <HelmetTitle pageTitle={"Task List | Dashboard"} />
       <SectionHeading title={"My Task"} subtitle={"---How to do??---"} />
       <div className="m-12 bg-white lg:w-11/12 mx-auto p-6 space-y-4 rounded-xl">
         <h1 className="font-Cinzel font-bold text-3xl leading-11 text-color3 ">
@@ -17,7 +19,7 @@ const WorkerTask = () => {
           {availableTask.map((task) => (
             <div
               key={task._id}
-              className="rounded-xl p-6 space-y-3 shadow-2xl bg-color6"
+              className="rounded-xl p-6 space-y-3 shadow-2xl bg-color6 hover:scale-105 transition-all"
             >
               <figure className="rounded-xl h-[250px]">
                 <img

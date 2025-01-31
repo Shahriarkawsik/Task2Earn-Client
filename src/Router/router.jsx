@@ -19,6 +19,7 @@ import ManageTask from "../Pages/Dashboard/Admin/ManageTask";
 import BuyerUpdateTask from "../Pages/Dashboard/Buyer/BuyerUpdateTask";
 import AvailableTaskDetails from "../Pages/Dashboard/Worker/AvailableTaskDetails";
 import PaymentPage from "../Pages/Dashboard/Buyer/PaymentPage";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -50,7 +51,11 @@ const router = createBrowserRouter([
       },
       {
         path: "workerTaskList",
-        element: <WorkerTask />,
+        element: (
+          <PrivateRoute>
+            <WorkerTask />
+          </PrivateRoute>
+        ),
       },
       {
         path: "workerTaskList/:id",

@@ -17,7 +17,16 @@
     --color-color6 : #f8fafa;
     --color-color7 : rgb(31, 41, 55);
     --color-color8 : rgb(17, 24, 39);
-  
+    /* card */
+    --color-color9 : #EB5A3C;
+    --color-color10 : #DF9755;
+    --color-color11 : #E7D283;
+    /* 2 */
+    --color-color12 : #1D1616;
+    --color-color13 : #8E1616;
+    --color-color14 : #EEEEEE;
+    /* --color-color14 : #D84040; */
+
     --text-20: 20px;
     --text-40: 40px;
     --leading-48: 48px;

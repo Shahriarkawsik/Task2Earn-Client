@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import useCalculateCoin from "./../../../Hooks/useCalculateCoin";
 import coinImg from "../../../assets/coin.png";
 import Swal from "sweetalert2";
+import HelmetTitle from "../../../Components/HelmetTitle";
 
 const WorkerWithdrawal = () => {
   const {
@@ -57,6 +58,7 @@ const WorkerWithdrawal = () => {
   return (
     <section className="bg-[#f6f6f6] min-h-screen my-5 ">
       <SectionHeading title={"Withdrawal"} subtitle={"---Earn More---"} />
+      <HelmetTitle pageTitle={"Withdrawal | Dashboard"} />
 
       <div className="my-12 space-y-6 w-10/12 mx-auto">
         {/* <h1 className="font-Inter font-bold text-40 leading-48 text-color2 text-center">

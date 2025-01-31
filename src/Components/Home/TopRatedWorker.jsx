@@ -19,8 +19,6 @@ const TopRatedWorker = () => {
     <section className="w-10/12 mx-auto space-y-6">
       <SectionHeading title={"Top earned worker"} />
       <Swiper
-        // slidesPerView={1}
-        // spaceBetween={30}
         pagination={{
           clickable: true,
         }}

@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import useCalculateCoin from "../../../Hooks/useCalculateCoin";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import HelmetTitle from "../../../Components/HelmetTitle";
 
 const AvailableTaskDetails = () => {
   const { id } = useParams();
@@ -90,6 +91,7 @@ const AvailableTaskDetails = () => {
 
   return (
     <section className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 font-Inter space-y-3">
+      <HelmetTitle pageTitle={"Task Details | Task List | Dashboard"} />
       <img
         src={task?.taskImageURL}
         alt={task?.taskTitle}

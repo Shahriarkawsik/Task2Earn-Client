@@ -3,6 +3,7 @@ import pendingImg from "../../../assets/pendingImg.png";
 import coin from "../../../assets/coin.png";
 import useGetAllSubmission from "../../../Hooks/useGetAllSubmission";
 import useCalculateCoin from "../../../Hooks/useCalculateCoin";
+import HelmetTitle from "../../../Components/HelmetTitle";
 
 const WorkerHome = () => {
   const [submissions] = useGetAllSubmission();
@@ -23,6 +24,7 @@ const WorkerHome = () => {
 
   return (
     <section className="py-5 space-y-8">
+      <HelmetTitle pageTitle={"Home | Dashboard"} />
       <h1 className="font-Cinzel font-semibold text-20 leading-11 text-color3">
         Hi, Welcome Back!
       </h1>

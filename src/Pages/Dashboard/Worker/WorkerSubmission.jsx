@@ -1,16 +1,52 @@
 import SectionHeading from "../../../Components/SectionHeading";
 import useCalculateCoin from "../../../Hooks/useCalculateCoin";
 import useGetAllSubmission from "../../../Hooks/useGetAllSubmission";
+import HelmetTitle from "../../../Components/HelmetTitle";
 
 const WorkerSubmission = () => {
   const [submissions] = useGetAllSubmission();
   const [currentUser] = useCalculateCoin();
+  // const axiosPublic = useAxiosPublic();
   const mySubmissions = submissions.filter(
     (submission) => submission.workerEmail === currentUser.userEmail
   );
+  // const [totalPage, setTotalPage] = useState(1);
+  // const page = [totalPage];
+  // const [start, setStart] = useState(0);
+
+  // useEffect(() => {
+  //   console.log(start);
+  // }, [start]);
+
+  // const { data: startData = [] } = useQuery({
+  //   queryKey: ["pageData", start],
+  //   queryFn: async () => {
+  //     const res = axiosPublic.get(`/submissions?start=${start}`);
+  //     return res.data;
+  //   },
+  // });
+  // console.log(startData);
+
+  // const { data: totalData = [] } = useQuery({
+  //   queryKey: ["totalData"],
+  //   queryFn: async () => {
+  //     const res = await axiosPublic.get("/getAllData");
+
+  //     return res.data;
+  //   },
+  // });
+
+  // useEffect(() => {
+  //   setTotalPage(Math.ceil(totalData / 10));
+  // }, [totalData]);
+  // const totalPage2 = [];
+  // for (let i = 0; i < totalPage; i++) {
+  //   totalPage2.push(i);
+  // }
 
   return (
     <section className="bg-[#f6f6f6] min-h-screen">
+      <HelmetTitle pageTitle={"Submission | Dashboard"} />
       <SectionHeading title={"My Submission's"} subtitle={"---What new??---"} />
       <div className="m-12 bg-white lg:w-11/12 mx-auto p-6 space-y-4">
         <h1 className="font-Cinzel font-bold text-3xl leading-11 text-color3">
@@ -53,6 +89,18 @@ const WorkerSubmission = () => {
           </table>
         </div>
       </div>
+      {/* pagination */}
+      {/* {totalPage2.map((page, index) => (
+        <button
+          onClick={() => {
+            setStart(index * 10);
+          }}
+          className="p-2 rounded-full bg-amber-400 mr-2"
+          key={index}
+        >
+          {index + 1}
+        </button>
+      ))} */}
     </section>
   );
 };
