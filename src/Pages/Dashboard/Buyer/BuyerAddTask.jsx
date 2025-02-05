@@ -6,6 +6,7 @@ import useAxiosSecure from "./../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import HelmetTitle from "../../../Components/HelmetTitle";
 
 const imageHostingKey = import.meta.env.VITE_IMAGEBB_HOSTING_KEY;
 const imageHostingAPI = `https://api.imgbb.com/1/upload?key=${imageHostingKey}`;
@@ -32,7 +33,6 @@ const BuyerAddTask = () => {
         "content-type": "multipart/form-data",
       },
     });
-
 
     // Form থেকে পাওয়া data
     const taskInfo = {
@@ -102,7 +102,7 @@ const BuyerAddTask = () => {
   return (
     <section className="bg-[#f6f6f6] min-h-screen">
       <SectionHeading title={"ADD A Task"} subtitle={`---What's new?---`} />
-
+      <HelmetTitle pageTitle={"Add Task | Dashboard"} />
       <div className="m-4 sm:m-8 lg:m-12 bg-white max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
         <form
           onSubmit={handleSubmit(onSubmit)}

@@ -1,5 +1,12 @@
+import HelmetTitle from "../../../Components/HelmetTitle";
+
 const BuyerPayment = () => {
-  return <div>buyerPayment</div>;
+  return (
+    <section>
+      <HelmetTitle pageTitle={"Payment | Dashboard"} />
+      <p>buyerPayment</p>
+    </section>
+  );
 };
 
 export default BuyerPayment;

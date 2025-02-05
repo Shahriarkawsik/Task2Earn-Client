@@ -3,6 +3,7 @@ import SectionHeading from "../../../Components/SectionHeading";
 import useGetAllUser from "../../../Hooks/useGetAllUser";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import HelmetTitle from "../../../Components/HelmetTitle";
 // import { useEffect } from "react";
 // import useAuth from "../../../Hooks/useAuth";
 
@@ -105,6 +106,7 @@ const ManageUser = () => {
         title={"MANAGE ALL USERS"}
         subtitle={"---How many??---"}
       />
+      <HelmetTitle pageTitle={"Manage User | Dashboard"} />
       {users.length ? (
         <div className="m-12 bg-white lg:w-11/12 mx-auto p-6 space-y-4">
           <h1 className="font-Cinzel font-bold text-3xl leading-11 text-color3">

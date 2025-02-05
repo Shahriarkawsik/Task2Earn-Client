@@ -3,6 +3,7 @@ import SectionHeading from "../../../Components/SectionHeading";
 import useGetallTask from "./../../../Hooks/useGetallTask";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import HelmetTitle from "../../../Components/HelmetTitle";
 
 const ManageTask = () => {
   const [tasks, refetch] = useGetallTask();
@@ -52,6 +53,7 @@ const ManageTask = () => {
         title={"MANAGE ALL TASK"}
         subtitle={"---How to do??---"}
       />
+      <HelmetTitle pageTitle={"Manage Task | Dashboard"} />
       <div className="m-12 bg-white lg:w-11/12 mx-auto p-6 space-y-4">
         <h1 className="font-Cinzel font-bold text-3xl leading-11 text-color3">
           Total Task: {tasks.length}

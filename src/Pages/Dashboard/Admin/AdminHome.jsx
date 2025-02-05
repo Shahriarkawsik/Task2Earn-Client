@@ -7,6 +7,7 @@ import useGetallTask from "./../../../Hooks/useGetallTask";
 import useGetAllWithdrawals from "../../../Hooks/useGetAllWithdrawals";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import HelmetTitle from "../../../Components/HelmetTitle";
 
 const AdminHome = () => {
   const [users] = useGetAllUser();
@@ -117,6 +118,7 @@ const AdminHome = () => {
   };
   return (
     <section className="py-5 lg:w-11/12 mx-auto space-y-10">
+      <HelmetTitle pageTitle={"Home | Dashboard"} />
       <h1 className="font-Cinzel font-semibold text-20 leading-11 text-color3">
         Hi, Welcome Back!
       </h1>
