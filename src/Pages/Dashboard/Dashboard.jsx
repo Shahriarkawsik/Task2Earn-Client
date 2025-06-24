@@ -58,7 +58,8 @@ const Dashboard = () => {
                     <li>
                       <NavLink
                         className=" hover:text-color1"
-                        to={"/dashboard/workerHome"}
+                        // to={"/dashboard/workerHome"}
+                        to={"/dashboard"}
                       >
                         Home
                       </NavLink>
@@ -95,7 +96,8 @@ const Dashboard = () => {
                     <li>
                       <NavLink
                         className=" hover:text-color1"
-                        to={"/dashboard/buyerHome"}
+                        // to={"/dashboard/buyerHome"}
+                        to={"/dashboard"}
                       >
                         Home
                       </NavLink>
@@ -140,7 +142,8 @@ const Dashboard = () => {
                     <li>
                       <NavLink
                         className=" hover:text-color1"
-                        to={"/dashboard/adminHome"}
+                        // to={"/dashboard/adminHome"}
+                        to={"/dashboard"}
                       >
                         Home
                       </NavLink>
@@ -167,10 +170,10 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+        {/* Main */}
         <div className="lg:col-span-6 xl:col-span-10 bg-[rgb(246, 246, 246)] min-h-screen px-2 sm:px-3 pt-10 ">
           <div className="flex rounded-xl shadow-xl">
             <div className="w-[85%]  flex justify-end items-center py-2 sm:gap-5">
-              {/* sm:w-[90%] lg:w-[95%] */}
               {/* coin and role */}
               <div className="flex flex-col items-center gap-2">
                 {/* coin Image */}
@@ -207,6 +210,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="min-h-[66%]">
+            {/* <BuyerHome /> */}
             <Outlet />
           </div>
           <Footer />

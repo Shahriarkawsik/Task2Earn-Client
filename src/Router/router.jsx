@@ -41,12 +41,12 @@ const router = createBrowserRouter([
     ],
   },
   {
+    // path: "dashboard",
     path: "dashboard",
     element: <Dashboard />,
     children: [
-      // Worker
       {
-        path: "workerHome",
+        path: "/dashboard",
         element: <WorkerHome />,
       },
       {
@@ -71,7 +71,8 @@ const router = createBrowserRouter([
       },
       // Buyer
       {
-        path: "buyerHome",
+        // path: "buyerHome",
+        path: "/dashboard",
         element: <BuyerHome />,
       },
       {
@@ -100,7 +101,8 @@ const router = createBrowserRouter([
       },
       // Admin
       {
-        path: "adminHome",
+        // path: "adminHome",
+        path: "/dashboard",
         element: <AdminHome />,
       },
       {
